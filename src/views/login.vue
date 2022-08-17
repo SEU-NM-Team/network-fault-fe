@@ -116,6 +116,13 @@
           @click.native.prevent="handleLogin"
           >登录</el-button
         >
+        <el-button
+          :loading="loading"
+          type="primary"
+          class="login_btn"
+          @click="handleLlogin"
+          >登录</el-button
+        >
       </el-form>
     </div>
     <!--  验证码  -->
@@ -134,14 +141,31 @@
       center
     >
       <div style="font-size: 30px; line-height: 50px; margin-bottom: 50px">
-        AJ-Report由<a href="http://www.anji-plus.com/" target="_blank" style="text-decoration: underline"><b>安吉加加信息技术有限公司</b></a
-      >遵循 <a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank" style="word-wrap: break-word"><strong style="color: orangered">Apache2.0开源协议</strong></a
-      >在<a href="https://gitee.com/explore" target="_blank" style="text-decoration: underline; word-wrap: break-word"><b>Gitee平台</b></a
-      >进行开源。
+        AJ-Report由<a
+          href="http://www.anji-plus.com/"
+          target="_blank"
+          style="text-decoration: underline"
+          ><b>安吉加加信息技术有限公司</b></a
+        >遵循
+        <a
+          href="http://www.apache.org/licenses/LICENSE-2.0.html"
+          target="_blank"
+          style="word-wrap: break-word"
+          ><strong style="color: orangered">Apache2.0开源协议</strong></a
+        >在<a
+          href="https://gitee.com/explore"
+          target="_blank"
+          style="text-decoration: underline; word-wrap: break-word"
+          ><b>Gitee平台</b></a
+        >进行开源。
       </div>
       <div style="font-size: 30px; line-height: 50px">
-        <strong style="color: orangered">个人/商业使用须遵循Apache2.0开源协议。</strong>
-        <strong style="color: orangered">禁止将AJ-Report产品用于违法违规业务。</strong>
+        <strong style="color: orangered"
+          >个人/商业使用须遵循Apache2.0开源协议。</strong
+        >
+        <strong style="color: orangered"
+          >禁止将AJ-Report产品用于违法违规业务。</strong
+        >
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="centerDialogVisible = false"
@@ -162,7 +186,7 @@ import { setToken, setAccessUser } from "@/utils/auth";
 export default {
   name: "Login",
   components: {
-    Verify
+    Verify,
   },
   data() {
     return {
@@ -171,11 +195,13 @@ export default {
       loginForm: {
         loginName: "",
         password: "",
-        verifyCode: ""
+        verifyCode: "",
       },
       loginRules: {
         loginName: [{ required: true, message: "用户名必填", trigger: "blur" }],
-        password: [{ required: true, message: "用户密码必填", trigger: "blur" }]
+        password: [
+          { required: true, message: "用户密码必填", trigger: "blur" },
+        ],
       },
       passwordType: "password",
       capsTooltip: false,
@@ -183,21 +209,21 @@ export default {
       redirect: undefined,
       otherQuery: {},
       needCaptcha: false,
-      centerDialogVisible: false
+      centerDialogVisible: false,
     };
   },
   watch: {
     $route: {
       // 监听路由获取上个路由（from）的地址和参数
-      handler: function(route) {
+      handler: function (route) {
         const query = route.query;
         if (query) {
           this.redirect = query.redirect;
           this.otherQuery = this.getOtherQuery(query);
         }
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   mounted() {
     this.handleLoginFocus();
@@ -237,7 +263,7 @@ export default {
     },
     // 滑动验证码
     useVerify() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate((valid) => {
         if (valid) {
           this.$refs.verify.show();
         } else {
@@ -254,7 +280,7 @@ export default {
     },
     // 登录操作
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate((valid) => {
         if (valid) {
           this.loading = true;
           // 登录失败次数过多需要展示滑动验证码
@@ -268,11 +294,16 @@ export default {
         }
       });
     },
+    handleLlogin() {
+      this.$router.push({
+        path: "/index",
+      });
+    },
     async loginApi() {
       const obj = {
         loginName: this.loginForm.loginName,
         password: transPsw(this.loginForm.password),
-        verifyCode: ""
+        verifyCode: "",
       };
       const { code, data } = await login(obj);
       this.loading = false;
@@ -292,7 +323,7 @@ export default {
         this.needCaptcha = false;
         this.$router.push({
           path: this.redirect || "/index",
-          query: this.otherQuery
+          query: this.otherQuery,
         });
       }
     },
@@ -303,8 +334,8 @@ export default {
         }
         return acc;
       }, {});
-    }
-  }
+    },
+  },
 };
 </script>
 
