@@ -14,23 +14,11 @@
         <div class="box">
           <img src="../../static/logo-dp.png" alt="" />
         </div>
-        <div class="name">AJ-Report</div>
+        <div class="name">运营商网络故障数据分析系统</div>
       </div>
-      <div class="right">
-        <div class="item" @click="centerDialogVisible = true">说明</div>
-        <div class="item">
-          <a href="https://ajreport.beliefteam.cn/report-doc/" target="blank"
-            >文档</a
-          >
-        </div>
-        <div class="item">
-          <a href="https://gitee.com/anji-plus/report" target="blank">社区</a>
-        </div>
-      </div>
-      <!-- <img src="@/assets/images/home-logo.png" alt="logo" /> -->
     </div>
     <div class="login_contant">
-      <img src="@/assets/images/login.jpg" alt="image" class="login_img" />
+      <img src="@/assets/images/login.png" alt="image" class="login_img" />
       <el-form
         ref="loginForm"
         :model="loginForm"
@@ -44,7 +32,7 @@
           <h3 class="title">
             HELLO,
             <br />
-            <p class="title_name">在线大屏</p>
+            <p class="title_name">SEUer</p>
           </h3>
         </div>
         <div class="form_fields">
@@ -127,28 +115,6 @@
       @success="verifylogin"
     />
 
-    <el-dialog
-      title="说明"
-      :visible.sync="centerDialogVisible"
-      width="34%"
-      center
-    >
-      <div style="font-size: 30px; line-height: 50px; margin-bottom: 50px">
-        AJ-Report由<a href="http://www.anji-plus.com/" target="_blank" style="text-decoration: underline"><b>安吉加加信息技术有限公司</b></a
-      >遵循 <a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank" style="word-wrap: break-word"><strong style="color: orangered">Apache2.0开源协议</strong></a
-      >在<a href="https://gitee.com/explore" target="_blank" style="text-decoration: underline; word-wrap: break-word"><b>Gitee平台</b></a
-      >进行开源。
-      </div>
-      <div style="font-size: 30px; line-height: 50px">
-        <strong style="color: orangered">个人/商业使用须遵循Apache2.0开源协议。</strong>
-        <strong style="color: orangered">禁止将AJ-Report产品用于违法违规业务。</strong>
-      </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="centerDialogVisible = false"
-          >确 定</el-button
-        >
-      </span>
-    </el-dialog>
   </div>
 </template>
 
@@ -183,7 +149,6 @@ export default {
       redirect: undefined,
       otherQuery: {},
       needCaptcha: false,
-      centerDialogVisible: false
     };
   },
   watch: {
@@ -213,6 +178,7 @@ export default {
     // 获取存储的密码并解密
     getPsw() {
       const cookVal = cookies.get(`u_${this.loginForm.loginName}`);
+      console.log(cookVal)
       this.loginForm.password = cookVal && Decrypt(cookVal);
     },
     // 滑动条块的top控制
@@ -274,7 +240,9 @@ export default {
         password: transPsw(this.loginForm.password),
         verifyCode: ""
       };
-      const { code, data } = await login(obj);
+      // const { code, data } = await login(obj);
+      const code = "200";
+      const data = {toekn: "abc"};
       this.loading = false;
       if (code != "200") return;
       setToken(data.token);
@@ -286,9 +254,13 @@ export default {
           Encrypt(this.loginForm.password),
           { expires: 15 }
         );
-      if (data && data.captcha) {
+      // if (data && data.captcha) {
+      //   this.needCaptcha = true;
+      // }
+      if (0) {
         this.needCaptcha = true;
-      } else {
+      }
+      else {
         this.needCaptcha = false;
         this.$router.push({
           path: this.redirect || "/index",
