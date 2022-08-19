@@ -108,7 +108,7 @@
         <el-button
           type="text"
           class="register_btn"
-          @click.native.prevent="needRegister = true"
+          @click.native.prevent="toRegister"
           >注册</el-button
         >
       </el-form>
@@ -219,6 +219,12 @@
           @click.native.prevent="handleRegister"
           >注册并登录</el-button
         >
+        <el-button
+          type="text"
+          class="register_btn"
+          @click.native.prevent="toLogin"
+          >已有账号，直接登录</el-button
+        >
       </el-form>
     </div>
     <!--  验证码  -->
@@ -315,6 +321,16 @@ export default {
       } else if (this.loginForm.password === "") {
         this.$refs.password.focus();
       }
+    },
+    toRegister() {
+      this.needRegister = true;
+      this.setTop(0);
+      this.$refs["loginForm"].resetFields();
+    },
+    toLogin() {
+      this.needRegister = false;
+      this.setTop(0);
+      this.$refs["registerForm"].resetFields();
     },
     // 获取存储的密码并解密
     getPsw() {
@@ -791,6 +807,12 @@ export default {
         font-size: 16px;
         color: #ffffff;
         text-align: center;
+      }
+      .register_btn {
+        line-height: 32px;
+        height: 32px;
+        font-size: 14px;
+        color: rgb(130, 130, 130);
       }
     }
   }
