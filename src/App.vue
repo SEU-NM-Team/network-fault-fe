@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <router-view v-if="isRouterAlive" />
+    <router-view v-if="true" />
+    <!-- <router-view v-if="isRouterAlive" /> -->
   </div>
 </template>
 
@@ -11,12 +12,12 @@ export default {
   name: "App",
   provide() {
     return {
-      reload: this.reload
+      reload: this.reload,
     };
   },
   data() {
     return {
-      isRouterAlive: false
+      isRouterAlive: false,
     };
   },
   watch: {
@@ -24,7 +25,7 @@ export default {
       if (to.path == "/login") {
         this.queryDictName();
       }
-    }
+    },
   },
   computed: {},
   created() {
@@ -36,14 +37,14 @@ export default {
       // initDictToLocalstorage(() => {
       //   this.isRouterAlive = true;
       // });
-        this.isRouterAlive = true;
+      this.isRouterAlive = true;
     },
     reload() {
       // this.isRouterAlive = false;
       // this.$nextTick(function() {
       //   this.isRouterAlive = true;
       // });
-    }
-  }
+    },
+  },
 };
 </script>

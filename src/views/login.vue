@@ -20,6 +20,7 @@
     <div class="login_contant">
       <img src="@/assets/images/login.png" alt="image" class="login_img" />
       <el-form
+        v-if="!needRegister"
         ref="loginForm"
         :model="loginForm"
         :rules="loginRules"
@@ -104,6 +105,120 @@
           @click.native.prevent="handleLogin"
           >登录</el-button
         >
+        <el-button
+          type="text"
+          class="register_btn"
+          @click.native.prevent="needRegister = true"
+          >注册</el-button
+        >
+      </el-form>
+      <el-form
+        v-if="needRegister"
+        ref="registerForm"
+        :model="registerForm"
+        :rules="registerRules"
+        class="register_form"
+        autocomplete="on"
+        label-position="left"
+        @keyup.enter.native="handleRegister"
+      >
+        <div class="title_container">
+          <h3 class="title">
+            HELLO,
+            <br />
+            <p class="title_name">SEUer</p>
+          </h3>
+        </div>
+        <div class="form_fields">
+          <!-- 黄色条条 -->
+          <i :style="{ top: activeTop + '%' }" />
+          <!-- 中间条条 -->
+          <b class="b1" />
+          <b class="b2" />
+          <div>
+            <p>用户名</p>
+            <el-form-item prop="loginName">
+              <el-input
+                ref="loginName"
+                v-model="registerForm.loginName"
+                placeholder="用户名"
+                name="loginName"
+                type="text"
+                tabindex="1"
+                autocomplete="on"
+                @focus="setTop('0')"
+              />
+            </el-form-item>
+          </div>
+          <div>
+            <p>密码</p>
+            <input
+              name="password"
+              type="password"
+              autocomplete="off"
+              class="take"
+            />
+            <el-tooltip
+              v-model="capsTooltip"
+              content="Caps lock is On"
+              placement="right"
+              manual
+            >
+              <el-form-item prop="password">
+                <el-input
+                  :key="passwordType"
+                  ref="password"
+                  v-model="registerForm.password"
+                  :type="passwordType"
+                  placeholder="用户密码"
+                  name="password"
+                  tabindex="2"
+                  autocomplete="on"
+                  @blur="capsTooltip = false"
+                  @focus="setTop('34')"
+                  @keyup.native="checkCapslock"
+                />
+                <span class="show_pwd" @click="showPwd">
+                  <i class="el-icon-view" />
+                </span>
+              </el-form-item>
+            </el-tooltip>
+          </div>
+          <div>
+            <p>确认密码</p>
+            <input
+              name="passwordConfirm"
+              type="password"
+              autocomplete="off"
+              class="take"
+            />
+
+            <el-form-item prop="passwordConfirm">
+              <el-input
+                :key="passwordTypeConfirm"
+                ref="passwordConfirm"
+                v-model="registerForm.passwordConfirm"
+                :type="passwordTypeConfirm"
+                placeholder="再次输入密码"
+                name="passwordConfirm"
+                tabindex="3"
+                autocomplete="on"
+                @focus="setTop('67')"
+              />
+              <span class="show_pwd" @click="showPwdConfirm">
+                <i class="el-icon-view" />
+              </span>
+            </el-form-item>
+          </div>
+        </div>
+        <div class="control"></div>
+        <el-button
+          :loading="loading"
+          type="primary"
+          class="login_btn"
+          @click.native.prevent="handleRegister"
+          >注册并登录</el-button
+        >
       </el-form>
     </div>
     <!--  验证码  -->
@@ -114,7 +229,6 @@
       :img-size="{ width: '400px', height: '200px' }"
       @success="verifylogin"
     />
-
   </div>
 </template>
 
@@ -128,41 +242,68 @@ import { setToken, setAccessUser } from "@/utils/auth";
 export default {
   name: "Login",
   components: {
-    Verify
+    Verify,
   },
   data() {
+    var validatePsw = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请再次输入密码"));
+      } else if (value !== this.registerForm.password) {
+        callback(new Error("两次输入密码不一致!"));
+      } else {
+        callback();
+      }
+    };
     return {
       activeTop: "-50%",
       rememberPsw: false,
       loginForm: {
         loginName: "",
         password: "",
-        verifyCode: ""
+        verifyCode: "",
       },
       loginRules: {
         loginName: [{ required: true, message: "用户名必填", trigger: "blur" }],
-        password: [{ required: true, message: "用户密码必填", trigger: "blur" }]
+        password: [
+          { required: true, message: "用户密码必填", trigger: "blur" },
+        ],
+      },
+      registerForm: {
+        loginName: "",
+        password: "",
+        passwordConfirm: "",
+      },
+      registerRules: {
+        loginName: [{ required: true, message: "用户名必填", trigger: "blur" }],
+        password: [
+          { required: true, message: "用户密码必填", trigger: "blur" },
+        ],
+        passwordConfirm: [
+          { required: true, validator: validatePsw, trigger: "blur" },
+        ],
       },
       passwordType: "password",
+      passwordTypeConfirm: "password",
       capsTooltip: false,
       loading: false,
       redirect: undefined,
       otherQuery: {},
       needCaptcha: false,
+      needRegister: false,
     };
   },
   watch: {
     $route: {
       // 监听路由获取上个路由（from）的地址和参数
-      handler: function(route) {
+      handler: function (route) {
         const query = route.query;
         if (query) {
           this.redirect = query.redirect;
           this.otherQuery = this.getOtherQuery(query);
         }
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   mounted() {
     this.handleLoginFocus();
@@ -178,7 +319,7 @@ export default {
     // 获取存储的密码并解密
     getPsw() {
       const cookVal = cookies.get(`u_${this.loginForm.loginName}`);
-      console.log(cookVal)
+      console.log(cookVal);
       this.loginForm.password = cookVal && Decrypt(cookVal);
     },
     // 滑动条块的top控制
@@ -201,9 +342,19 @@ export default {
         this.$refs.password.focus();
       });
     },
+    showPwdConfirm() {
+      if (this.passwordTypeConfirm === "password") {
+        this.passwordTypeConfirm = "";
+      } else {
+        this.passwordTypeConfirm = "password";
+      }
+      this.$nextTick(() => {
+        this.$refs.passwordConfirm.focus();
+      });
+    },
     // 滑动验证码
     useVerify() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate((valid) => {
         if (valid) {
           this.$refs.verify.show();
         } else {
@@ -218,9 +369,37 @@ export default {
         this.loginApi();
       }
     },
+    //注册操作
+    handleRegister() {
+      this.$refs.registerForm.validate((valid) => {
+        if (valid) {
+          this.loading = true;
+          this.registerApi();
+        } else {
+          return false;
+        }
+      });
+    },
+    async registerApi() {
+      const obj = {
+        loginName: this.registerForm.loginName,
+        password: transPsw(this.registerForm.password),
+      };
+      // const { code, data } = await register(obj);
+      const code = "200";
+      const data = { toekn: "abc" };
+      this.loading = false;
+      if (code != "200") return;
+      setToken(data.token);
+      setAccessUser(data);
+      this.$router.push({
+        path: this.redirect || "/index",
+        query: this.otherQuery,
+      });
+    },
     // 登录操作
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate((valid) => {
         if (valid) {
           this.loading = true;
           // 登录失败次数过多需要展示滑动验证码
@@ -238,11 +417,11 @@ export default {
       const obj = {
         loginName: this.loginForm.loginName,
         password: transPsw(this.loginForm.password),
-        verifyCode: ""
+        verifyCode: "",
       };
       // const { code, data } = await login(obj);
       const code = "200";
-      const data = {toekn: "abc"};
+      const data = { toekn: "abc" };
       this.loading = false;
       if (code != "200") return;
       setToken(data.token);
@@ -259,12 +438,11 @@ export default {
       // }
       if (0) {
         this.needCaptcha = true;
-      }
-      else {
+      } else {
         this.needCaptcha = false;
         this.$router.push({
           path: this.redirect || "/index",
-          query: this.otherQuery
+          query: this.otherQuery,
         });
       }
     },
@@ -275,8 +453,8 @@ export default {
         }
         return acc;
       }, {});
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -285,7 +463,6 @@ export default {
   color: #000;
   background: #fff;
 }
-
 .login_container {
   .el-input {
     display: inline-block;
@@ -300,7 +477,6 @@ export default {
       }
     }
   }
-
   .el-form-item {
     border-radius: 5px;
     color: #454545;
@@ -493,6 +669,118 @@ export default {
             font-weight: bold;
           }
         }
+      }
+      .login_btn {
+        width: 130px;
+        height: 40px;
+        background: #f5ab1b;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        color: #ffffff;
+        text-align: center;
+      }
+      .register_btn {
+        line-height: 32px;
+        height: 32px;
+        font-size: 14px;
+        color: rgb(130, 130, 130);
+      }
+    }
+    .register_form {
+      position: absolute;
+      top: 50%;
+      right: 30%;
+      transform: translate(50%, -50%);
+      min-width: 400px;
+      width: 22%;
+      height: 460px;
+      background-color: #ffffff;
+      border-radius: 11px;
+      padding: 30px;
+      overflow: hidden;
+      .title_container {
+        position: relative;
+        .title {
+          font-size: 24px;
+          color: #1a1a1a;
+          .title_name {
+            margin: 0;
+            font-size: 18px;
+          }
+        }
+        .set_language {
+          color: #fff;
+          position: absolute;
+          top: 3px;
+          font-size: 18px;
+          right: 0px;
+          cursor: pointer;
+        }
+      }
+      .form_fields {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        padding: 5px 16px;
+        background: #ffffff;
+        border: 1px solid #e0e0e0;
+        box-shadow: 0 0 14px 4px rgba(230, 229, 229, 0.5);
+        border-radius: 4px 10px 10px 4px;
+        i {
+          position: absolute;
+          top: -50%;
+          left: 0;
+          width: 4px;
+          height: 33.3%;
+          transition: top 0.2s;
+          background: #f5ab1b;
+          border-radius: 14px;
+        }
+        .b1 {
+          position: absolute;
+          top: 34%;
+          left: 0;
+          width: 100%;
+          height: 1px;
+          background: #e0e0e0;
+          border-radius: 2px;
+          margin-top: -0.5px;
+        }
+        .b2 {
+          position: absolute;
+          top: 67%;
+          left: 0;
+          width: 100%;
+          height: 1px;
+          background: #e0e0e0;
+          border-radius: 2px;
+          margin-top: -0.5px;
+        }
+        p {
+          margin: 0;
+          padding: 0;
+          line-height: 32px;
+          height: 32px;
+          font-size: 12px;
+          color: #666;
+        }
+        .show_pwd {
+          position: absolute;
+          right: 10px;
+          top: 0;
+          font-size: 16px;
+          color: #889aa4;
+          cursor: pointer;
+          user-select: none;
+        }
+      }
+      .control {
+        width: 100%;
+        height: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
       }
       .login_btn {
         width: 130px;

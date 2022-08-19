@@ -56,7 +56,7 @@ export const constantRouterMap = [
           title: '首页',
           icon: 'iconhome2',
           keepAlive: true,
-          requireAuth: true
+
         }
       },
     ]
