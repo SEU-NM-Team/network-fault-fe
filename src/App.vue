@@ -34,15 +34,16 @@ export default {
   methods: {
     queryDictName() {
       // 初始化数据字典到浏览器本地缓存
-      initDictToLocalstorage(() => {
-        this.isRouterAlive = true;
-      });
+      // initDictToLocalstorage(() => {
+      //   this.isRouterAlive = true;
+      // });
+      this.isRouterAlive = true;
     },
     reload() {
-      this.isRouterAlive = false;
-      this.$nextTick(function () {
-        this.isRouterAlive = true;
-      });
+      // this.isRouterAlive = false;
+      // this.$nextTick(function() {
+      //   this.isRouterAlive = true;
+      // });
     },
   },
 };
