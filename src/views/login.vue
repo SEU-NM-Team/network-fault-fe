@@ -16,6 +16,9 @@
         </div>
         <div class="name">运营商网络故障数据分析系统</div>
       </div>
+      <div class="right">
+        <div class="item" @click="centerDialogVisible = true">管理员</div>
+      </div>
     </div>
     <div class="login_contant">
       <img src="@/assets/images/login.png" alt="image" class="login_img" />
@@ -40,7 +43,8 @@
           <!-- 黄色条条 -->
           <i :style="{ top: activeTop + '%' }" />
           <!-- 中间条条 -->
-          <b />
+          <b class="b1" />
+          <b class="b2" />
           <div>
             <p>用户名</p>
             <el-form-item prop="loginName">
@@ -82,7 +86,7 @@
                   tabindex="2"
                   autocomplete="on"
                   @blur="capsTooltip = false"
-                  @focus="setTop('50')"
+                  @focus="setTop('34')"
                   @keyup.native="checkCapslock"
                 />
                 <span class="show_pwd" @click="showPwd">
@@ -90,6 +94,19 @@
                 </span>
               </el-form-item>
             </el-tooltip>
+          </div>
+          <div>
+            <p>用户类型</p>
+            <el-form-item prop="userType">
+              <el-radio-group
+                ref="userType"
+                v-model="loginForm.userType"
+                @change="setTop('67')"
+              >
+                <el-radio :label="1">运营商用户</el-radio>
+                <el-radio :label="2">大数据工程师</el-radio>
+              </el-radio-group>
+            </el-form-item>
           </div>
         </div>
         <div class="control">
@@ -135,6 +152,7 @@
           <!-- 中间条条 -->
           <b class="b1" />
           <b class="b2" />
+          <b class="b3" />
           <div>
             <p>用户名</p>
             <el-form-item prop="loginName">
@@ -175,7 +193,7 @@
                   tabindex="2"
                   autocomplete="on"
                   @blur="capsTooltip = false"
-                  @focus="setTop('34')"
+                  @focus="setTop('25')"
                   @keyup.native="checkCapslock"
                 />
                 <span class="show_pwd" @click="showPwd">
@@ -203,11 +221,24 @@
                 name="passwordConfirm"
                 tabindex="3"
                 autocomplete="on"
-                @focus="setTop('67')"
+                @focus="setTop('50')"
               />
               <span class="show_pwd" @click="showPwdConfirm">
                 <i class="el-icon-view" />
               </span>
+            </el-form-item>
+          </div>
+          <div>
+            <p>用户类型</p>
+            <el-form-item prop="userType">
+              <el-radio-group
+                ref="userType"
+                v-model="registerForm.userType"
+                @change="setTop('75')"
+              >
+                <el-radio :label="1">运营商用户</el-radio>
+                <el-radio :label="2">大数据工程师</el-radio>
+              </el-radio-group>
             </el-form-item>
           </div>
         </div>
@@ -235,6 +266,38 @@
       :img-size="{ width: '400px', height: '200px' }"
       @success="verifylogin"
     />
+    <!-- 管理员登录 -->
+    <el-dialog
+      title="管理员登录"
+      :visible.sync="centerDialogVisible"
+      width="34%"
+      center
+      @close="closeDialog"
+    >
+      <el-form
+        ref="adminForm"
+        :model="adminForm"
+        :rules="adminRule"
+        label-width="70px"
+      >
+        <el-form-item label="密码" prop="password">
+          <el-input
+            ref="password"
+            v-model="adminForm.password"
+            type="password"
+            class="admin_form"
+          ></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click.native.prevent="handleAdmin"
+          >确 定</el-button
+        >
+        <el-button type="primary" @click="centerDialogVisible = false"
+          >取 消</el-button
+        >
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -260,12 +323,20 @@ export default {
         callback();
       }
     };
+    var validateType = (rule, value, callback) => {
+      if ((value === 1) | (value === 2)) {
+        callback();
+      } else {
+        callback(new Error("用户类型必选"));
+      }
+    };
     return {
       activeTop: "-50%",
       rememberPsw: false,
       loginForm: {
         loginName: "",
         password: "",
+        userType: "",
         verifyCode: "",
       },
       loginRules: {
@@ -273,11 +344,15 @@ export default {
         password: [
           { required: true, message: "用户密码必填", trigger: "blur" },
         ],
+        userType: [
+          { required: true, validator: validateType, trigger: "change" },
+        ],
       },
       registerForm: {
         loginName: "",
         password: "",
         passwordConfirm: "",
+        userType: "",
       },
       registerRules: {
         loginName: [{ required: true, message: "用户名必填", trigger: "blur" }],
@@ -287,6 +362,15 @@ export default {
         passwordConfirm: [
           { required: true, validator: validatePsw, trigger: "blur" },
         ],
+        userType: [
+          { required: true, validator: validateType, trigger: "change" },
+        ],
+      },
+      adminForm: {
+        password: "",
+      },
+      adminRule: {
+        password: [{ required: true, message: "密码必填", trigger: "blur" }],
       },
       passwordType: "password",
       passwordTypeConfirm: "password",
@@ -296,6 +380,7 @@ export default {
       otherQuery: {},
       needCaptcha: false,
       needRegister: false,
+      centerDialogVisible: false,
     };
   },
   watch: {
@@ -322,11 +407,13 @@ export default {
         this.$refs.password.focus();
       }
     },
+    //转到注册页面
     toRegister() {
       this.needRegister = true;
       this.setTop(0);
       this.$refs["loginForm"].resetFields();
     },
+    //转到登录页面
     toLogin() {
       this.needRegister = false;
       this.setTop(0);
@@ -385,11 +472,42 @@ export default {
         this.loginApi();
       }
     },
+    closeDialog() {
+      this.$refs["adminForm"].resetFields();
+    },
+    //管理员登录
+    handleAdmin() {
+      this.$refs.adminForm.validate((valid) => {
+        if (valid) {
+          this.loading = true;
+          console.log(this.adminForm);
+          this.adminApi();
+        } else {
+          return false;
+        }
+      });
+    },
+    async adminApi() {
+      const obj = {
+        password: transPsw(this.adminForm.password),
+      };
+      // const { code, data } = await register(obj);
+      const code = "200";
+      const data = { toekn: "admin" };
+      this.loading = false;
+      if (code != "200") return;
+      setToken(data.token);
+      setAccessUser(data);
+      this.$router.push({
+        path: "/admin",
+      });
+    },
     //注册操作
     handleRegister() {
       this.$refs.registerForm.validate((valid) => {
         if (valid) {
           this.loading = true;
+          console.log(this.registerForm);
           this.registerApi();
         } else {
           return false;
@@ -493,6 +611,13 @@ export default {
       }
     }
   }
+  .el-radio__input.is-checked + .el-radio__label {
+    color: #f5ab1b !important;
+  }
+  .el-radio__input.is-checked .el-radio__inner {
+    background: #f5ab1b !important;
+    border-color: #f5ab1b !important;
+  }
   .el-form-item {
     border-radius: 5px;
     color: #454545;
@@ -509,6 +634,9 @@ export default {
   top: 0;
   left: 0;
   z-index: -1;
+}
+.admin_form {
+  border: 1px solid rgb(193, 192, 192);
 }
 .login_container {
   height: 100%;
@@ -578,7 +706,7 @@ export default {
       transform: translate(50%, -50%);
       min-width: 400px;
       width: 22%;
-      height: 460px;
+      height: 530px;
       background-color: #ffffff;
       border-radius: 11px;
       padding: 30px;
@@ -616,14 +744,24 @@ export default {
           top: -50%;
           left: 0;
           width: 4px;
-          height: 50%;
+          height: 33.3%;
           transition: top 0.2s;
           background: #f5ab1b;
           border-radius: 14px;
         }
-        b {
+        .b1 {
           position: absolute;
-          top: 50%;
+          top: 34%;
+          left: 0;
+          width: 100%;
+          height: 1px;
+          background: #e0e0e0;
+          border-radius: 2px;
+          margin-top: -0.5px;
+        }
+        .b2 {
+          position: absolute;
+          top: 67%;
           left: 0;
           width: 100%;
           height: 1px;
@@ -710,7 +848,7 @@ export default {
       transform: translate(50%, -50%);
       min-width: 400px;
       width: 22%;
-      height: 460px;
+      height: 550px;
       background-color: #ffffff;
       border-radius: 11px;
       padding: 30px;
@@ -748,14 +886,14 @@ export default {
           top: -50%;
           left: 0;
           width: 4px;
-          height: 33.3%;
+          height: 25%;
           transition: top 0.2s;
           background: #f5ab1b;
           border-radius: 14px;
         }
         .b1 {
           position: absolute;
-          top: 34%;
+          top: 25%;
           left: 0;
           width: 100%;
           height: 1px;
@@ -765,7 +903,17 @@ export default {
         }
         .b2 {
           position: absolute;
-          top: 67%;
+          top: 50%;
+          left: 0;
+          width: 100%;
+          height: 1px;
+          background: #e0e0e0;
+          border-radius: 2px;
+          margin-top: -0.5px;
+        }
+        .b3 {
+          position: absolute;
+          top: 75%;
           left: 0;
           width: 100%;
           height: 1px;
