@@ -493,7 +493,7 @@ export default {
       };
       // const { code, data } = await register(obj);
       const code = "200";
-      const data = { toekn: "admin" };
+      const data = { token: "admin" };
       this.loading = false;
       if (code != "200") return;
       setToken(data.token);
@@ -521,7 +521,7 @@ export default {
       };
       // const { code, data } = await register(obj);
       const code = "200";
-      const data = { toekn: "abc" };
+      const data = { token: "abc" };
       this.loading = false;
       if (code != "200") return;
       setToken(data.token);
@@ -555,7 +555,7 @@ export default {
       };
       // const { code, data } = await login(obj);
       const code = "200";
-      const data = { toekn: "abc" };
+      const data = { token: "abc" };
       this.loading = false;
       if (code != "200") return;
       setToken(data.token);
