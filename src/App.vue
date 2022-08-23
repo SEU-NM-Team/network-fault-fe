@@ -17,7 +17,7 @@ export default {
   },
   data() {
     return {
-      isRouterAlive: false,
+      isRouterAlive: true,
     };
   },
   watch: {
