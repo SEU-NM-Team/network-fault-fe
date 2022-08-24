@@ -39,13 +39,13 @@
                       <el-input
                         v-if="
                           item.inputType == 'input' ||
-                            item.inputType == 'input-number'
+                          item.inputType == 'input-number'
                         "
                         v-model.trim="queryParams[item.field]"
                         :placeholder="item.placeholder || '请输入'"
                         :clearable="item.clearable !== false"
                         :disabled="item.disabled"
-                        @change="value => queryFormChange(item.field, value)"
+                        @change="(value) => queryFormChange(item.field, value)"
                       />
                       <!-- 开关 -->
                       <el-switch
@@ -56,7 +56,7 @@
                         :inactive-value="item.switchOption.enableValue"
                         active-color="#5887fb"
                         inactive-color="#ccc"
-                        @change="value => queryFormChange(item.field, value)"
+                        @change="(value) => queryFormChange(item.field, value)"
                       />
                       <!-- 下拉框 -->
                       <anji-select
@@ -75,7 +75,7 @@
                         :disabled="item.disabled"
                         :merge-label="item.anjiSelectOption.mergeLabel"
                         :local-options="item.anjiSelectOption.localOptions"
-                        @change="value => queryFormChange(item.field, value)"
+                        @change="(value) => queryFormChange(item.field, value)"
                       />
                       <!-- 日期时间框  -->
                       <el-date-picker
@@ -87,7 +87,7 @@
                         :format="item.format"
                         :value-format="item.valueFormat"
                         :clearable="item.clearable !== false"
-                        @change="value => queryFormChange(item.field, value)"
+                        @change="(value) => queryFormChange(item.field, value)"
                       />
                       <anji-cascader
                         v-else-if="item.inputType == 'anji-cascader'"
@@ -96,7 +96,7 @@
                         :single-display="item.anjiCascader.singleDisplay"
                         :url="item.anjiCascader.url"
                         @change="
-                          value => queryFormChange(item.field, value, null)
+                          (value) => queryFormChange(item.field, value, null)
                         "
                       />
                       <!-- 待扩展的表单类型，请自行扩展 -->
@@ -199,8 +199,8 @@
               <template slot-scope="scope">
                 {{
                   queryParams.pageSize * (queryParams.pageNumber - 1) +
-                    scope.$index +
-                    1
+                  scope.$index +
+                  1
                 }}
               </template>
             </el-table-column>
@@ -278,10 +278,9 @@
                       :type="item.type || 'text'"
                       size="small"
                       @click="item.click(scope.row)"
-                    >{{ handlegetLable(scope.row, item.label) }}</el-button
+                      >{{ handlegetLable(scope.row, item.label) }}</el-button
                     >
                   </template>
-
                 </div>
                 <div v-else>
                   <el-button
@@ -302,9 +301,11 @@
                     </span>
                     <el-dropdown-menu slot="dropdown">
                       <el-dropdown-item class="clearfix">
-                        <template v-for="(item, index) in option.rowButtons.filter(
+                        <template
+                          v-for="(item, index) in option.rowButtons.filter(
                             (el, index) => index > 0
-                          )">
+                          )"
+                        >
                           <el-button
                             v-if="isHide(item, scope.row)"
                             :key="index"
@@ -313,7 +314,7 @@
                             :disabled="isDisabledButton(item, scope.row)"
                             size="small"
                             @click="item.click(scope.row)"
-                          >{{
+                            >{{
                               handlegetLable(scope.row, item.label)
                             }}</el-button
                           >
@@ -395,7 +396,7 @@ export default {
   components: {
     EditDialog,
     AnjiTree,
-    anjiContextMenu
+    anjiContextMenu,
   },
   props: {
     option: {
@@ -415,14 +416,14 @@ export default {
             query: {},
             edit: {},
             delete: {},
-            add: {}
+            add: {},
           },
           // 表格列
           columns: [],
-          queryFormChange: (fileName, val) => {}
+          queryFormChange: (fileName, val) => {},
         };
-      }
-    }
+      },
+    },
   },
   data() {
     return {
@@ -432,7 +433,7 @@ export default {
         pageNumber: 1,
         pageSize: 10,
         order: "",
-        sort: ""
+        sort: "",
       },
 
       checkRecords: [], // 表格中当前选中的记录
@@ -448,7 +449,7 @@ export default {
 
       isShowRowContextMenu: false,
       contextMenuConfigStyle: {},
-      contextMenuRow: {}
+      contextMenuRow: {},
     };
   },
 
@@ -462,7 +463,7 @@ export default {
     // 左侧树形查询条件
     queryFormTreeField() {
       const treeField = this.option.queryFormFields.find(
-        item => item["inputType"] == "anji-tree"
+        (item) => item["inputType"] == "anji-tree"
       );
       return treeField;
     },
@@ -473,14 +474,14 @@ export default {
     // 不包含树形控件的查询条件
     queryFormFieldExcludeTree() {
       let treeFields = this.option.queryFormFields.filter(
-        item => item["inputType"] != "anji-tree"
+        (item) => item["inputType"] != "anji-tree"
       );
       return treeFields;
     },
     // 主键的列名
     primaryKeyFieldName() {
       let primaryKey = this.option.columns.find(
-        item => item["primaryKey"] == true
+        (item) => item["primaryKey"] == true
       );
       if (primaryKey != null) {
         return primaryKey["field"];
@@ -492,7 +493,7 @@ export default {
     // 表格中可展开的列
     tableExpandColumns() {
       let expandColumns = this.option.columns.filter(
-        item => item["columnType"] == "expand"
+        (item) => item["columnType"] == "expand"
       );
       return expandColumns;
     },
@@ -500,11 +501,11 @@ export default {
     // 是否可以批量删除
     disableBatchDelete() {
       return this.checkRecords.length <= 0;
-    }
+    },
   },
   created() {
     // 为查询框中所有input加上默认值
-    this.option.queryFormFields.forEach(item => {
+    this.option.queryFormFields.forEach((item) => {
       // 动态添加属性
       this.$set(this.queryParams, item.field, item.defaultValue || null);
     });
@@ -562,7 +563,7 @@ export default {
           this.queryParams = {
             showMoreSearch: false,
             pageNumber: 1,
-            pageSize: 10
+            pageSize: 10,
           };
           this.queryParams[this.queryFormTreeField.field] = treeVal;
         }
@@ -608,12 +609,12 @@ export default {
         sort: "",
         pageNumber: 1,
         pageSize: 10,
-        showMoreSearch
+        showMoreSearch,
       };
 
       // 查询条件表单只读模式下不重置默认值
       const queryFormFieldsOption = this.option.queryFormFields;
-      queryFormFieldsOption.forEach(el => {
+      queryFormFieldsOption.forEach((el) => {
         if (el.disabled) {
           this.queryParams[el.field] = el.defaultValue;
         }
@@ -651,7 +652,7 @@ export default {
       }
       const obj = {
         type: modelType,
-        value: row
+        value: row,
       };
       this.$emit("handleCustomValue", obj);
     },
@@ -702,15 +703,15 @@ export default {
         ids.push(row[this.primaryKeyFieldName]); // 删除指定的行
       } else {
         // 批量删除选中的行
-        ids = this.checkRecords.map(item => item[this.primaryKeyFieldName]);
+        ids = this.checkRecords.map((item) => item[this.primaryKeyFieldName]);
       }
       this.$confirm("删除确认", "确认要删除吗?", {
         type: "warning",
         confirmButtonClass: "delete_sure",
-        cancelButtonClass: "el-button--danger is-plain"
+        cancelButtonClass: "el-button--danger is-plain",
       })
         .then(() => {
-          this.option.buttons.delete.api(ids).then(res => {
+          this.option.buttons.delete.api(ids).then((res) => {
             // {code: "200", message: "操作成功", data: true}
             this.checkRecords = [];
             // 关闭弹出框时，如果有树，刷新下
@@ -723,7 +724,7 @@ export default {
             this.handleQueryPageList();
           });
         })
-        .catch(e => {
+        .catch((e) => {
           e;
         });
     },
@@ -731,8 +732,8 @@ export default {
     // 选择项改变时
     handleSelectionChange(val) {
       if (val.length > 0) {
-        val.forEach(el => {
-          this.records.forEach(ev => {
+        val.forEach((el) => {
+          this.records.forEach((ev) => {
             if (el.id == ev.id) {
               ev.dblClickFlag = true;
               ev.bgColor = true;
@@ -740,7 +741,7 @@ export default {
           });
         });
       } else {
-        this.records.forEach(ev => {
+        this.records.forEach((ev) => {
           ev.dblClickFlag = false;
           ev.bgColor = false;
         });
@@ -757,7 +758,7 @@ export default {
     // 右键
     rowContextMenu(row, column, event) {
       event.preventDefault();
-      this.option.contextMenu.forEach(el => {
+      this.option.contextMenu.forEach((el) => {
         if (el.flag == "all") {
           el.disabled = !(this.checkRecords.length > 1);
         } else {
@@ -769,7 +770,7 @@ export default {
       this.contextMenuConfigStyle = {
         left: event.clientX + "px",
         top: event.clientY + "px",
-        display: "block"
+        display: "block",
       };
       // 获取当前右键行数据
       this.contextMenuRow = row;
@@ -796,77 +797,76 @@ export default {
     },
     // 带单位的列，需要转换
     fieldLabel(columnConfig) {
-      let objUnitText = "";
-      const localStorageUnit = this.getSettingByName("unit_conversion");
-      const objUnit = {};
-      for (const key in localStorageUnit) {
-        columnConfig.anjiInput &&
-          key
-            .toLowerCase()
-            .indexOf(columnConfig.anjiInput.unit.toLowerCase()) != -1 &&
-          (objUnit[key] = localStorageUnit[key]);
-      }
-      for (const key in objUnit) {
-        key.toLowerCase().indexOf("text") != -1 && (objUnitText = objUnit[key]);
-      }
-      if (columnConfig == null) {
-        return "";
-      }
-      if (
-        columnConfig.inputType == "anji-input" &&
-        columnConfig.anjiInput != null
-      ) {
-        return columnConfig.anjiInput["defaultUnit"] == undefined
-          ? `${columnConfig.label}(${objUnitText})`
-          : `${columnConfig.label}(${columnConfig.anjiInput["defaultUnit"]})`;
-      } else {
-        return columnConfig.label;
-      }
+      // let objUnitText = "";
+      // const localStorageUnit = this.getSettingByName("unit_conversion");
+      // const objUnit = {};
+      // for (const key in localStorageUnit) {
+      //   columnConfig.anjiInput &&
+      //     key
+      //       .toLowerCase()
+      //       .indexOf(columnConfig.anjiInput.unit.toLowerCase()) != -1 &&
+      //     (objUnit[key] = localStorageUnit[key]);
+      // }
+      // for (const key in objUnit) {
+      //   key.toLowerCase().indexOf("text") != -1 && (objUnitText = objUnit[key]);
+      // }
+      // if (columnConfig == null) {
+      //   return "";
+      // }
+      // if (
+      //   columnConfig.inputType == "anji-input" &&
+      //   columnConfig.anjiInput != null
+      // ) {
+      //   return columnConfig.anjiInput["defaultUnit"] == undefined
+      //     ? `${columnConfig.label}(${objUnitText})`
+      //     : `${columnConfig.label}(${columnConfig.anjiInput["defaultUnit"]})`;
+      // } else {
+      //   return columnConfig.label;
+      // }
     },
     // 带单位的输入框
     fieldValueByAnjiInput(value, columnConfig) {
-      const localStorageUnit = this.getSettingByName("unit_conversion");
-      let objUnitConversion = "";
-      let objUnitKeepPoint = "";
-      let objUnitConversionRadioGroup = [];
-      const objUnit = {};
-      for (const key in localStorageUnit) {
-        columnConfig.anjiInput &&
-          key
-            .toLowerCase()
-            .indexOf(columnConfig.anjiInput.unit.toLowerCase()) != -1 &&
-          (objUnit[key] = localStorageUnit[key]);
-      }
-      for (const key in objUnit) {
-        key.toLowerCase().indexOf("conversion") != -1 &&
-          key.toLowerCase().indexOf("conversiontext") == -1 &&
-          key.toLowerCase().indexOf("conversionradiogroup") == -1 &&
-          (objUnitConversion = objUnit[key]);
-        key.toLowerCase().indexOf("keeppoint") != -1 &&
-          (objUnitKeepPoint = objUnit[key]);
-        Array.isArray(objUnit[key]) &&
-          (objUnitConversionRadioGroup = objUnit[key]);
-      }
-
-      if (columnConfig == null) {
-        return value;
-      }
-      if (
-        columnConfig.inputType == "anji-input" &&
-        columnConfig.anjiInput != null
-      ) {
-        if (columnConfig.anjiInput["defaultUnit"] == undefined) {
-          // 不存在
-          return (value / objUnitConversion).toFixed(objUnitKeepPoint || 2);
-        } else {
-          const coversion = objUnitConversionRadioGroup.find(
-            item => item.label == columnConfig.anjiInput["defaultUnit"]
-          )["value"];
-          return (value / coversion).toFixed(objUnitKeepPoint || 2);
-        }
-      } else {
-        return value;
-      }
+      // const localStorageUnit = this.getSettingByName("unit_conversion");
+      // let objUnitConversion = "";
+      // let objUnitKeepPoint = "";
+      // let objUnitConversionRadioGroup = [];
+      // const objUnit = {};
+      // for (const key in localStorageUnit) {
+      //   columnConfig.anjiInput &&
+      //     key
+      //       .toLowerCase()
+      //       .indexOf(columnConfig.anjiInput.unit.toLowerCase()) != -1 &&
+      //     (objUnit[key] = localStorageUnit[key]);
+      // }
+      // for (const key in objUnit) {
+      //   key.toLowerCase().indexOf("conversion") != -1 &&
+      //     key.toLowerCase().indexOf("conversiontext") == -1 &&
+      //     key.toLowerCase().indexOf("conversionradiogroup") == -1 &&
+      //     (objUnitConversion = objUnit[key]);
+      //   key.toLowerCase().indexOf("keeppoint") != -1 &&
+      //     (objUnitKeepPoint = objUnit[key]);
+      //   Array.isArray(objUnit[key]) &&
+      //     (objUnitConversionRadioGroup = objUnit[key]);
+      // }
+      // if (columnConfig == null) {
+      //   return value;
+      // }
+      // if (
+      //   columnConfig.inputType == "anji-input" &&
+      //   columnConfig.anjiInput != null
+      // ) {
+      //   if (columnConfig.anjiInput["defaultUnit"] == undefined) {
+      //     // 不存在
+      //     return (value / objUnitConversion).toFixed(objUnitKeepPoint || 2);
+      //   } else {
+      //     const coversion = objUnitConversionRadioGroup.find(
+      //       (item) => item.label == columnConfig.anjiInput["defaultUnit"]
+      //     )["value"];
+      //     return (value / coversion).toFixed(objUnitKeepPoint || 2);
+      //   }
+      // } else {
+      //   return value;
+      // }
     },
     // 带表格列格式化的值
     fieldValueByRowRenderer(row, columnConfig) {
@@ -891,8 +891,8 @@ export default {
         url: api.url,
         method: "put",
         headers: { noPrompt: false },
-        data: [val.id]
-      }).then(response => {
+        data: [val.id],
+      }).then((response) => {
         this.handleQueryPageList();
       });
     },
@@ -913,8 +913,8 @@ export default {
       if ((rowIndex + 1) % 2 === 0) {
         return "success-row";
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
