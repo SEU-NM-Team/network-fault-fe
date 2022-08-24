@@ -16,9 +16,6 @@
         </div>
         <div class="name">运营商网络故障数据分析系统</div>
       </div>
-      <div class="right">
-        <div class="item" @click="centerDialogVisible = true">管理员</div>
-      </div>
     </div>
     <div class="login_contant">
       <img src="@/assets/images/login.png" alt="image" class="login_img" />
@@ -104,7 +101,7 @@
                 @change="setTop('67')"
               >
                 <el-radio :label="1">运营商用户</el-radio>
-                <el-radio :label="2">大数据工程师</el-radio>
+                <el-radio :label="2">管理员</el-radio>
               </el-radio-group>
             </el-form-item>
           </div>
@@ -152,7 +149,6 @@
           <!-- 中间条条 -->
           <b class="b1" />
           <b class="b2" />
-          <b class="b3" />
           <div>
             <p>用户名</p>
             <el-form-item prop="loginName">
@@ -193,7 +189,7 @@
                   tabindex="2"
                   autocomplete="on"
                   @blur="capsTooltip = false"
-                  @focus="setTop('25')"
+                  @focus="setTop('34')"
                   @keyup.native="checkCapslock"
                 />
                 <span class="show_pwd" @click="showPwd">
@@ -221,24 +217,11 @@
                 name="passwordConfirm"
                 tabindex="3"
                 autocomplete="on"
-                @focus="setTop('50')"
+                @focus="setTop('67')"
               />
               <span class="show_pwd" @click="showPwdConfirm">
                 <i class="el-icon-view" />
               </span>
-            </el-form-item>
-          </div>
-          <div>
-            <p>用户类型</p>
-            <el-form-item prop="userType">
-              <el-radio-group
-                ref="userType"
-                v-model="registerForm.userType"
-                @change="setTop('75')"
-              >
-                <el-radio :label="1">运营商用户</el-radio>
-                <el-radio :label="2">大数据工程师</el-radio>
-              </el-radio-group>
             </el-form-item>
           </div>
         </div>
@@ -266,38 +249,6 @@
       :img-size="{ width: '400px', height: '200px' }"
       @success="verifylogin"
     />
-    <!-- 管理员登录 -->
-    <el-dialog
-      title="管理员登录"
-      :visible.sync="centerDialogVisible"
-      width="34%"
-      center
-      @close="closeDialog"
-    >
-      <el-form
-        ref="adminForm"
-        :model="adminForm"
-        :rules="adminRule"
-        label-width="70px"
-      >
-        <el-form-item label="密码" prop="password">
-          <el-input
-            ref="password"
-            v-model="adminForm.password"
-            type="password"
-            class="admin_form"
-          ></el-input>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click.native.prevent="handleAdmin"
-          >确 定</el-button
-        >
-        <el-button type="primary" @click="centerDialogVisible = false"
-          >取 消</el-button
-        >
-      </span>
-    </el-dialog>
   </div>
 </template>
 
@@ -362,15 +313,6 @@ export default {
         passwordConfirm: [
           { required: true, validator: validatePsw, trigger: "blur" },
         ],
-        userType: [
-          { required: true, validator: validateType, trigger: "change" },
-        ],
-      },
-      adminForm: {
-        password: "",
-      },
-      adminRule: {
-        password: [{ required: true, message: "密码必填", trigger: "blur" }],
       },
       passwordType: "password",
       passwordTypeConfirm: "password",
@@ -380,7 +322,6 @@ export default {
       otherQuery: {},
       needCaptcha: false,
       needRegister: false,
-      centerDialogVisible: false,
     };
   },
   watch: {
@@ -471,36 +412,6 @@ export default {
       if (this.loginForm.verifyCode) {
         this.loginApi();
       }
-    },
-    closeDialog() {
-      this.$refs["adminForm"].resetFields();
-    },
-    //管理员登录
-    handleAdmin() {
-      this.$refs.adminForm.validate((valid) => {
-        if (valid) {
-          this.loading = true;
-          console.log(this.adminForm);
-          this.adminApi();
-        } else {
-          return false;
-        }
-      });
-    },
-    async adminApi() {
-      const obj = {
-        password: transPsw(this.adminForm.password),
-      };
-      // const { code, data } = await register(obj);
-      const code = "200";
-      const data = { token: "admin" };
-      this.loading = false;
-      if (code != "200") return;
-      setToken(data.token);
-      setAccessUser(data);
-      this.$router.push({
-        path: "/admin",
-      });
     },
     //注册操作
     handleRegister() {
@@ -848,7 +759,7 @@ export default {
       transform: translate(50%, -50%);
       min-width: 400px;
       width: 22%;
-      height: 550px;
+      height: 530px;
       background-color: #ffffff;
       border-radius: 11px;
       padding: 30px;
@@ -886,14 +797,14 @@ export default {
           top: -50%;
           left: 0;
           width: 4px;
-          height: 25%;
+          height: 33.3%;
           transition: top 0.2s;
           background: #f5ab1b;
           border-radius: 14px;
         }
         .b1 {
           position: absolute;
-          top: 25%;
+          top: 34%;
           left: 0;
           width: 100%;
           height: 1px;
@@ -903,17 +814,7 @@ export default {
         }
         .b2 {
           position: absolute;
-          top: 50%;
-          left: 0;
-          width: 100%;
-          height: 1px;
-          background: #e0e0e0;
-          border-radius: 2px;
-          margin-top: -0.5px;
-        }
-        .b3 {
-          position: absolute;
-          top: 75%;
+          top: 67%;
           left: 0;
           width: 100%;
           height: 1px;
@@ -941,7 +842,7 @@ export default {
       }
       .control {
         width: 100%;
-        height: 15px;
+        height: 50px;
         display: flex;
         align-items: center;
         justify-content: space-between;
