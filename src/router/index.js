@@ -62,6 +62,26 @@ export const constantRouterMap = [
     ]
   },
   {
+    path: '/screen',
+    name: 'screen',
+    component: Layout,
+    meta: {
+      title: '数据展示',
+      icon: 'iconchufaqipeizhi-hui'
+    },
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/screen/index'),
+        meta: {
+          title: '数据展示',
+          icon: 'iconchufaqipeizhi-hui',
+          keepAlive: true,
+        }
+      }
+    ]
+  },
+  {
     path: '/access',
     name: 'access',
     component: Layout,
