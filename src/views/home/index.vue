@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 首页
- * @version: 
- * @Author: qianlishi
- * @Date: 2021-12-11 14:48:27
- * @LastEditors: qianlishi
- * @LastEditTime: 2021-12-13 09:45:44
--->
 <template>
   <div class="index-container">
     <el-row align="middle" justify="center">

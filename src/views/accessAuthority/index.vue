@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 用户权限--权限管理
- * @version: 
- * @Author: qianlishi
- * @Date: 2021-12-11 14:48:27
- * @LastEditors: qianlishi
- * @LastEditTime: 2022-03-09 09:22:40
--->
 <template>
   <anji-crud ref="listPage" :option="crudOption" />
 </template>

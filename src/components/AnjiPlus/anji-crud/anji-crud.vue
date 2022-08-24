@@ -512,7 +512,7 @@ export default {
     if (this.option.skipQuery || this.option.skipQuery == undefined) {
       this.handleQueryForm("query");
     }
-    this.queryFormChange();
+    // this.queryFormChange();
   },
   mounted() {
     if (this.$scopedSlots["rowButtonInMore"] != null) {
@@ -595,7 +595,10 @@ export default {
     async handleQueryPageList() {
       // 将特殊参数值urlcode处理
       let params = this.urlEncodeObject(this.queryParams, "order,sort");
-      const { data, code } = await this.option.buttons.query.api(params);
+      // console.log("Params:",params)
+      // const { data, code } = await this.option.buttons.query.api(params);
+      const code = "200";
+      const data = {records: {}, total: 0};
       if (code != "200") return;
       this.records = data.records;
       this.total = data.total;
@@ -897,6 +900,7 @@ export default {
       });
     },
     queryFormChange(fileName, fieldVal) {
+      console.log("type",typeof this.option.queryFormChange)
       if (typeof this.option.queryFormChange == "function") {
         this.option.queryFormChange(this.queryParams, fileName, fieldVal);
       }
