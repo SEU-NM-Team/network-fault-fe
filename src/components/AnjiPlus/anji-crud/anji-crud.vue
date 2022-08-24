@@ -238,9 +238,9 @@
                       />
                     </span>
                     <!-- 带单位 -->
-                    <span v-else-if="item.inputType == 'anji-input'">{{
+                    <!-- <span v-else-if="item.inputType == 'anji-input'">{{
                       fieldValueByAnjiInput(scope.row[item.field], item)
-                    }}</span>
+                    }}</span> -->
                     <!--表格 a 合并 b上-->
                     <span v-else-if="item.mergeColumn"
                       >{{ scope.row[item.field] }}({{
@@ -513,7 +513,7 @@ export default {
     if (this.option.skipQuery || this.option.skipQuery == undefined) {
       this.handleQueryForm("query");
     }
-    // this.queryFormChange();
+    this.queryFormChange();
   },
   mounted() {
     if (this.$scopedSlots["rowButtonInMore"] != null) {
@@ -596,10 +596,9 @@ export default {
     async handleQueryPageList() {
       // 将特殊参数值urlcode处理
       let params = this.urlEncodeObject(this.queryParams, "order,sort");
-      // console.log("Params:",params)
-      // const { data, code } = await this.option.buttons.query.api(params);
-      const code = "200";
-      const data = {records: {}, total: 0};
+      const { data, code } = await this.option.buttons.query.api(params);
+      // const code = "200";
+      // const data = {records: {}, total: 0};
       if (code != "200") return;
       this.records = data.records;
       this.total = data.total;
@@ -813,64 +812,64 @@ export default {
       // for (const key in objUnit) {
       //   key.toLowerCase().indexOf("text") != -1 && (objUnitText = objUnit[key]);
       // }
-      // if (columnConfig == null) {
-      //   return "";
-      // }
-      // if (
-      //   columnConfig.inputType == "anji-input" &&
-      //   columnConfig.anjiInput != null
-      // ) {
-      //   return columnConfig.anjiInput["defaultUnit"] == undefined
-      //     ? `${columnConfig.label}(${objUnitText})`
-      //     : `${columnConfig.label}(${columnConfig.anjiInput["defaultUnit"]})`;
-      // } else {
-      //   return columnConfig.label;
-      // }
+      if (columnConfig == null) {
+        return "";
+      }
+      if (
+        columnConfig.inputType == "anji-input" &&
+        columnConfig.anjiInput != null
+      ) {
+        return columnConfig.anjiInput["defaultUnit"] == undefined
+          ? `${columnConfig.label}(${objUnitText})`
+          : `${columnConfig.label}(${columnConfig.anjiInput["defaultUnit"]})`;
+      } else {
+        return columnConfig.label;
+      }
     },
     // 带单位的输入框
-    fieldValueByAnjiInput(value, columnConfig) {
-      // const localStorageUnit = this.getSettingByName("unit_conversion");
-      // let objUnitConversion = "";
-      // let objUnitKeepPoint = "";
-      // let objUnitConversionRadioGroup = [];
-      // const objUnit = {};
-      // for (const key in localStorageUnit) {
-      //   columnConfig.anjiInput &&
-      //     key
-      //       .toLowerCase()
-      //       .indexOf(columnConfig.anjiInput.unit.toLowerCase()) != -1 &&
-      //     (objUnit[key] = localStorageUnit[key]);
-      // }
-      // for (const key in objUnit) {
-      //   key.toLowerCase().indexOf("conversion") != -1 &&
-      //     key.toLowerCase().indexOf("conversiontext") == -1 &&
-      //     key.toLowerCase().indexOf("conversionradiogroup") == -1 &&
-      //     (objUnitConversion = objUnit[key]);
-      //   key.toLowerCase().indexOf("keeppoint") != -1 &&
-      //     (objUnitKeepPoint = objUnit[key]);
-      //   Array.isArray(objUnit[key]) &&
-      //     (objUnitConversionRadioGroup = objUnit[key]);
-      // }
-      // if (columnConfig == null) {
-      //   return value;
-      // }
-      // if (
-      //   columnConfig.inputType == "anji-input" &&
-      //   columnConfig.anjiInput != null
-      // ) {
-      //   if (columnConfig.anjiInput["defaultUnit"] == undefined) {
-      //     // 不存在
-      //     return (value / objUnitConversion).toFixed(objUnitKeepPoint || 2);
-      //   } else {
-      //     const coversion = objUnitConversionRadioGroup.find(
-      //       (item) => item.label == columnConfig.anjiInput["defaultUnit"]
-      //     )["value"];
-      //     return (value / coversion).toFixed(objUnitKeepPoint || 2);
-      //   }
-      // } else {
-      //   return value;
-      // }
-    },
+    // fieldValueByAnjiInput(value, columnConfig) {
+    //   const localStorageUnit = this.getSettingByName("unit_conversion");
+    //   let objUnitConversion = "";
+    //   let objUnitKeepPoint = "";
+    //   let objUnitConversionRadioGroup = [];
+    //   const objUnit = {};
+    //   for (const key in localStorageUnit) {
+    //     columnConfig.anjiInput &&
+    //       key
+    //         .toLowerCase()
+    //         .indexOf(columnConfig.anjiInput.unit.toLowerCase()) != -1 &&
+    //       (objUnit[key] = localStorageUnit[key]);
+    //   }
+    //   for (const key in objUnit) {
+    //     key.toLowerCase().indexOf("conversion") != -1 &&
+    //       key.toLowerCase().indexOf("conversiontext") == -1 &&
+    //       key.toLowerCase().indexOf("conversionradiogroup") == -1 &&
+    //       (objUnitConversion = objUnit[key]);
+    //     key.toLowerCase().indexOf("keeppoint") != -1 &&
+    //       (objUnitKeepPoint = objUnit[key]);
+    //     Array.isArray(objUnit[key]) &&
+    //       (objUnitConversionRadioGroup = objUnit[key]);
+    //   }
+    //   if (columnConfig == null) {
+    //     return value;
+    //   }
+    //   if (
+    //     columnConfig.inputType == "anji-input" &&
+    //     columnConfig.anjiInput != null
+    //   ) {
+    //     if (columnConfig.anjiInput["defaultUnit"] == undefined) {
+    //       // 不存在
+    //       return (value / objUnitConversion).toFixed(objUnitKeepPoint || 2);
+    //     } else {
+    //       const coversion = objUnitConversionRadioGroup.find(
+    //         (item) => item.label == columnConfig.anjiInput["defaultUnit"]
+    //       )["value"];
+    //       return (value / coversion).toFixed(objUnitKeepPoint || 2);
+    //     }
+    //   } else {
+    //     return value;
+    //   }
+    // },
     // 带表格列格式化的值
     fieldValueByRowRenderer(row, columnConfig) {
       if (
