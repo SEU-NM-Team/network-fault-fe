@@ -41,6 +41,16 @@ export const constantRouterMap = [
     hidden: true
   },
   {
+    path:'/adminManagement',
+    component:()=>import('../views/admin/adminManagement'),
+    hidden:true,
+    meta:{
+      title:"管理员管理用户",
+      keepAlive:true,
+      requireAuth:true,
+    }
+  },
+  {
     path: '/index',
     component: Layout,
     name: 'index',
