@@ -60,13 +60,6 @@
               {{ item.updateTime }}
               <div class="operation">
                 <el-button
-                  icon="el-icon-share"
-                  class="view"
-                  type="text"
-                  @click="share(item)"
-                  v-permission="'bigScreenManage:share'"
-                />
-                <el-button
                   icon="el-icon-view"
                   class="view"
                   type="text"
@@ -97,22 +90,13 @@
         @current-change="handleCurrentChange"
       />
     </div>
-    <Share
-      :visib="visibleForShareDialog"
-      :reportCode="reportCodeForShareDialog"
-      :reportName="reportNameForShareDialog"
-      :reportType="reportTypeForShareDialog"
-      @handleClose="visibleForShareDialog = false"
-    />
   </div>
 </template>
 
 <script>
-import Share from "./components/share";
 import { reportPageList } from "@/api/report";
 export default {
   name: "Login",
-  components: { Share },
   data() {
     return {
       list: [],
@@ -126,13 +110,8 @@ export default {
         pageNumber: 1,
         pageSize: 8,
         order: "DESC",
-        sort: "update_time"
+        sort: "update_time",
       },
-      // 分享
-      visibleForShareDialog: false,
-      reportCodeForShareDialog: "",
-      reportNameForShareDialog: "",
-      reportTypeForShareDialog: "",
     };
   },
   mounted() {},
@@ -158,7 +137,7 @@ export default {
       if (res.code != "200") return;
       this.listLoading = true;
       this.list = res.data.records;
-      this.list.forEach(value => {
+      this.list.forEach((value) => {
         value["reportNameCode"] =
           value.reportName + "[" + value.reportCode + "]";
       });
@@ -174,31 +153,24 @@ export default {
       this.params.pageNumber = val;
       this.queryByPage();
     },
-    // 分享
-    share(val) {
-      this.reportCodeForShareDialog = val.reportCode;
-      this.reportNameForShareDialog = val.reportName;
-      this.reportTypeForShareDialog = val.reportType;
-      this.visibleForShareDialog = true;
-    },
     openDesign(val) {
       let routeUrl = this.$router.resolve({
         //path: "/screenDesigner",
         path: "/bigscreen/designer",
         query: {
-          reportCode: val.reportCode
-        }
+          reportCode: val.reportCode,
+        },
       });
       window.open(routeUrl.href, "_blank");
     },
     viewDesign(val) {
       let routeUrl = this.$router.resolve({
         path: "/bigscreen/viewer",
-        query: { reportCode: val.reportCode }
+        query: { reportCode: val.reportCode },
       });
       window.open(routeUrl.href, "_blank");
-    }
-  }
+    },
+  },
 };
 </script>
 
