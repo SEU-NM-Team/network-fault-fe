@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 用户权限--数据集
- * @version: 
- * @Author: qianlishi
- * @Date: 2021-12-11 14:48:27
- * @LastEditors: qianlishi
- * @LastEditTime: 2022-04-14 18:48:24
--->
 <template>
   <anji-crud ref="listPage" :option="crudOption">
     <template v-slot:tableButtons>
@@ -19,6 +11,7 @@
           <el-dropdown-item command="http">HTTP</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+      <el-button type="primary" icon="el-icon-plus" @click="operateDataset()">新增</el-button>
     </template>
 
     <template v-slot:pageSection>
@@ -290,6 +283,7 @@ export default {
 
   methods: {
     operateDataset(type, prop) {
+      console.log(type, prop)
       this.dialogVisibleSetDataSet = true;
       if (prop && prop.setType) {
         this.dataSet = prop;
@@ -297,6 +291,8 @@ export default {
       } else {
         this.dataSet = {};
       }
+      // console.log(type)
+      // type = sql
       this.$refs.EditDataSet.addOrEditDataSet(this.dataSet, type);
     },
     refreshList() {

@@ -107,7 +107,7 @@ export default {
     // 预处理提交数据
     submitDetailData: {
       type: Function,
-      default: (data, tpe) => {
+      default: (data, type) => {
         return data;
       }
     },
@@ -336,6 +336,7 @@ export default {
     async handleSave() {
       const params = this.submitDetailData(this.saveForm, this.modelType);
       // 新增
+      console.log(this.saveForm)
       if (this.modelType == "add") {
         const { code, message } = await this.option.buttons.add.api(params);
         if (code == "200") {

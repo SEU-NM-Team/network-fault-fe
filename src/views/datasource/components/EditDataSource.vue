@@ -188,6 +188,7 @@ export default {
       const { code, data } = await getDictList("SOURCE_TYPE");
       if (code != "200") return;
       this.dictionaryOptions = data;
+      // console.log('!!!', this.dictionaryOptions)
       this.dialogForm.sourceType = this.dictionaryOptions[0].text;
       this.dataLink = JSON.parse(this.dictionaryOptions[0].extend);
       this.setDataSource();
@@ -237,6 +238,7 @@ export default {
       this.dataLink.forEach(item => {
         newList[item.label] = item.value;
       });
+      // console.log(newList)
       this.dialogForm.sourceConfig = JSON.stringify(newList);
       testConnection(this.dialogForm).then(data => {
         if (data.code == "200") {

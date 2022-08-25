@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 报表设计--报表管理
- * @version:
- * @Author: qianlishi
- * @Date: 2021-12-11 14:48:27
- * @LastEditors: qianlishi
- * @LastEditTime: 2022-05-17 17:38:44
--->
 <template>
   <anji-crud ref="listPage" :option="crudOption">
     <template v-slot:pageSection>
@@ -54,14 +46,6 @@ export default {
         labelWidth: "120px",
         // 查询表单条件
         queryFormFields: [
-          {
-            inputType: "anji-select", //form表单类型 input|input-number|anji-select(传递url或者dictCode)|anji-tree(左侧树)|date|datetime|datetimerange
-            anjiSelectOption: {
-              dictCode: "REPORT_TYPE"
-            },
-            label: "报表类型",
-            field: "reportType"
-          },
           {
             inputType: "input",
             label: "报表名称",
@@ -211,38 +195,6 @@ export default {
             disabled: "disableOnEdit"
           },
           {
-            label: "分组", //分组,暂时不展示出来
-            placeholder: "",
-            field: "reportGroup",
-            tableHide: true,
-            editHide: true,
-            editField: "reportGroup",
-            inputType: "input",
-            rules: [
-              { min: 1, max: 100, message: "不超过100个字符", trigger: "blur" }
-            ],
-            disabled: false,
-            defaultValue: "default"
-          },
-          {
-            label: "报表类型", //报表类型-目前仅支持大屏报表，暂时不展示出来
-            placeholder: "",
-            field: "reportType",
-            editField: "reportType",
-            inputType: "anji-select",
-            fieldTableRowRenderer: row => {
-              return this.getDictLabelByCode("REPORT_TYPE", row["reportType"]);
-            },
-            anjiSelectOption: {
-              dictCode: "REPORT_TYPE"
-            },
-            rules: [
-              { required: true, message: "请输入报表类型", trigger: "blur" },
-              { min: 1, max: 20, message: "不超过20个字符", trigger: "blur" }
-            ],
-            disabled: "disableOnEdit"
-          },
-          {
             label: "制作人", //名称
             placeholder: "",
             field: "reportAuthor",
@@ -337,26 +289,17 @@ export default {
     },
     // 预览
     preview(val) {
-      let routePath = "";
-      if (val.reportType === "report_excel") {
-        routePath = "/excelreport/viewer";
-      } else {
-        routePath = "/bigscreen/viewer";
-      }
+      let routePath = "/bigscreen/viewer";
       let routeUrl = this.$router.resolve({
         path: routePath,
         query: { reportCode: val.reportCode }
       });
+      console.log(routeUrl)
       window.open(routeUrl.href, "_blank");
     },
     // 设计
     design(val) {
-      let routePath = "";
-      if (val.reportType === "report_excel") {
-        routePath = "/excelreport/designer";
-      } else {
-        routePath = "/bigscreen/designer";
-      }
+      let routePath = "/bigscreen/designer";
       let routeUrl = this.$router.resolve({
         path: routePath,
         query: {

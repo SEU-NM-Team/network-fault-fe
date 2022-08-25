@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 登录
- * @version:
- * @Author: qianlishi
- * @Date: 2021-12-11 14:48:27
- * @LastEditors: qianlishi
- * @LastEditTime: 2022-06-23 17:23:23
--->
 <template>
   <div class="login_container">
     <!-- 顶部logo -->
@@ -312,6 +304,9 @@ export default {
   name: "Login",
   components: {
     Verify,
+  },
+  created() {
+    document.title = "运营商网络故障数据分析系统"
   },
   data() {
     var validatePsw = (rule, value, callback) => {

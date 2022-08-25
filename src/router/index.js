@@ -36,6 +36,16 @@ export const constantRouterMap = [
     hidden: true
   },
   {
+    path:'/adminManagement',
+    component:()=>import('../views/admin/adminManagement'),
+    hidden:true,
+    meta:{
+      title:"管理员管理用户",
+      keepAlive:true,
+      requireAuth:true,
+    }
+  },
+  {
     path: '/index',
     component: Layout,
     name: 'index',
@@ -198,56 +208,6 @@ export const constantRouterMap = [
     ]
   },
   {
-    path: '/system',
-    name: 'system',
-    component: Layout,
-    meta: {
-      title: '系统设置',
-      icon: 'iconshezhi',
-      requireAuth: true,
-      permission: 'fileManage|dictManage|dictItemManage'
-    },
-    children: [
-      {
-        path: 'file',
-        name: 'file',
-        component: () => import('@/views/fileManagement/index'),
-        meta: {
-          title: '文件管理',
-          icon: 'iconfill_folder',
-          keepAlive: true,
-          requireAuth: true,
-          permission: 'fileManage'
-        }
-      },
-      {
-        path: 'dict',
-        name: 'dict',
-        component: () => import('@/views/dict/index'),
-        meta: {
-          title: '数据字典',
-          icon: 'iconzidian',
-          keepAlive: true,
-          requireAuth: true,
-          permission: 'dictManage'
-        }
-      },
-      {
-        path: 'dictItem',
-        name: 'dictItem',
-        component: () => import('@/views/dict/dict-item'),
-        hidden: true,
-        meta: {
-          title: '字典项',
-          icon: 'iconzidianxiang',
-          keepAlive: true,
-          requireAuth: true,
-          permission: 'dictItemManage'
-        }
-      },
-    ]
-  },
-  {
     path: '/bigscreen/viewer',
     component: () => import('@/views/bigscreenDesigner/viewer'),
     hidden: true,
@@ -258,20 +218,6 @@ export const constantRouterMap = [
   {
     path: '/bigscreen/designer',
     component: () => import('@/views/bigscreenDesigner/designer'),
-    hidden: true,
-    meta: {
-      requireAuth: true
-    }
-  },
-  // 重写大屏
-  {
-    path: '/screenDesigner',
-    component: () => import('@/views/screenDesigner/index'),
-    name: 'screenDesigner',
-  },
-  {
-    path: '/screen/preview',
-    component: () => import('@/views/screenDesigner/preview'),
     hidden: true,
     meta: {
       requireAuth: true

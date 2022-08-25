@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 
- * @version: 
- * @Author: qianlishi
- * @Date: 2022-05-17 16:55:05
- * @LastEditors: qianlishi
- * @LastEditTime: 2022-05-17 17:38:54
--->
 <template>
   <el-dialog
     class="tree_dialog"
