@@ -31,6 +31,10 @@ Vue.component('anji-upload', anjiUpload)
 Vue.component('anji-crud', anjiCrud)
 Vue.component('anji-select', anjiSelect)
 
+// dataV
+import dataV from '@jiaminghi/data-view'
+Vue.use(dataV)
+
 // permission control
 import '@/permission'
 // 按钮权限的指令
