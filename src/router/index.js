@@ -36,11 +36,6 @@ export const constantRouterMap = [
     hidden: true
   },
   {
-    path: '/el/**',
-    component: () => import('@/views/excelreport/el'),
-    hidden: true
-  },
-  {
     path: '/index',
     component: Layout,
     name: 'index',
@@ -57,6 +52,41 @@ export const constantRouterMap = [
           icon: 'iconhome2',
           keepAlive: true,
 
+        }
+      },
+    ]
+  },
+  {
+    path: '/data',
+    name: 'data',
+    component: Layout,
+    meta: {
+      title: '数据管理',
+      icon: 'iconnavicon-ywcs'
+    },
+    children: [
+      {
+        path: 'datasource',
+        name: 'datasource',
+        component: () => import('@/views/datasource/index'),
+        meta: {
+          title: '数据源',
+          icon: 'icondatabase',
+          keepAlive: true,
+          requireAuth: true,
+          permission: 'datasourceManage'
+        }
+      },
+      {
+        path: 'resultset',
+        name: 'resultset',
+        component: () => import('@/views/resultset/index'),
+        meta: {
+          title: '数据集',
+          icon: 'iconAPIwangguan',
+          keepAlive: true,
+          requireAuth: true,
+          permission: 'resultsetManage'
         }
       },
     ]
@@ -142,30 +172,6 @@ export const constantRouterMap = [
     },
     children: [
       {
-        path: 'datasource',
-        name: 'datasource',
-        component: () => import('@/views/datasource/index'),
-        meta: {
-          title: '数据源',
-          icon: 'icondatabase',
-          keepAlive: true,
-          requireAuth: true,
-          permission: 'datasourceManage'
-        }
-      },
-      {
-        path: 'resultset',
-        name: 'resultset',
-        component: () => import('@/views/resultset/index'),
-        meta: {
-          title: '数据集',
-          icon: 'iconAPIwangguan',
-          keepAlive: true,
-          requireAuth: true,
-          permission: 'resultsetManage'
-        }
-      },
-      {
         path: 'report',
         name: 'reportIndex',
         component: () => import('@/views/reportManage/index'),
@@ -188,30 +194,6 @@ export const constantRouterMap = [
           requireAuth: true,
           permission: 'bigScreenManage'
         },
-      },
-      {
-        path: 'excelreport',
-        name: 'excelreport',
-        component: () => import('@/views/excelreport/index'),
-        meta: {
-          title: '表格报表',
-          icon: 'iconliebiao',
-          keepAlive: true,
-          requireAuth: true,
-          permission: 'excelManage'
-        }
-      },
-      {
-        path: 'reportshare',
-        name: 'reportshare',
-        component: () => import('@/views/reportShare/index'),
-        meta: {
-          title: '报表分享',
-          icon: 'iconfenxiang1',
-          keepAlive: true,
-          requireAuth: true,
-          permission: 'reportShareManage'
-        }
       },
     ]
   },
@@ -276,22 +258,6 @@ export const constantRouterMap = [
   {
     path: '/bigscreen/designer',
     component: () => import('@/views/bigscreenDesigner/designer'),
-    hidden: true,
-    meta: {
-      requireAuth: true
-    }
-  },
-  {
-    path: '/excelreport/viewer',
-    component: () => import('@/views/excelreport/viewer'),
-    hidden: true,
-    meta: {
-      requireAuth: true
-    }
-  },
-  {
-    path: '/excelreport/designer',
-    component: () => import('@/views/excelreport/designer'),
     hidden: true,
     meta: {
       requireAuth: true

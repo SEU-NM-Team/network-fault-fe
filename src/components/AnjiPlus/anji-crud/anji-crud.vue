@@ -899,7 +899,7 @@ export default {
       });
     },
     queryFormChange(fileName, fieldVal) {
-      console.log("type",typeof this.option.queryFormChange)
+      // console.log("type",typeof this.option.queryFormChange)
       if (typeof this.option.queryFormChange == "function") {
         this.option.queryFormChange(this.queryParams, fileName, fieldVal);
       }

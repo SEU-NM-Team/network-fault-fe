@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="项目基础配置"
+    title="数据源配置"
     width="50%"
     :close-on-click-modal="false"
     center

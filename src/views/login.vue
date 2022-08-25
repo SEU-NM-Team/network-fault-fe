@@ -553,7 +553,6 @@ export default {
         password: transPsw(this.loginForm.password),
         verifyCode: "",
       };
-      console.log(obj.password)
       const { code, data } = await login(obj);
       // const code = "200";
       // const data = { token: "abc" };

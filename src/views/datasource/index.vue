@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 报表设计--数据源
- * @version: 
- * @Author: qianlishi
- * @Date: 2021-12-11 14:48:27
- * @LastEditors: qianlishi
- * @LastEditTime: 2022-03-09 09:43:31
--->
 <template>
   <anji-crud ref="listPage" :option="crudOption">
     <template v-slot:pageSection>
