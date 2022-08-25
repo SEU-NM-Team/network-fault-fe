@@ -41,6 +41,16 @@ export const constantRouterMap = [
     hidden: true
   },
   {
+    path:'/adminManagement',
+    component:()=>import('../views/admin/adminManagement'),
+    hidden:true,
+    meta:{
+      title:"管理员管理用户",
+      keepAlive:true,
+      requireAuth:true,
+    }
+  },
+  {
     path: '/index',
     component: Layout,
     name: 'index',
@@ -59,6 +69,26 @@ export const constantRouterMap = [
 
         }
       },
+    ]
+  },
+  {
+    path: '/screen',
+    name: 'screen',
+    component: Layout,
+    meta: {
+      title: '数据展示',
+      icon: 'iconchufaqipeizhi-hui'
+    },
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/screen/index'),
+        meta: {
+          title: '数据展示',
+          icon: 'iconchufaqipeizhi-hui',
+          keepAlive: true,
+        }
+      }
     ]
   },
   {
