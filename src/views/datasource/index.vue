@@ -177,7 +177,8 @@ export default {
             rules: [
               { min: 1, max: 50, message: "不超过50个字符", trigger: "blur" }
             ],
-            disabled: false
+            disabled: false,
+            tableHide: true
           },
           {
             label: "数据源连接配置json", //数据源连接配置json：关系库{ jdbcUrl:'', username:'', password:'' } ES{ hostList:'ip1:9300,ip2:9300,ip3:9300', clusterName:'elasticsearch_cluster' }  接口{ apiUrl:'http://ip:port/url', method:'' } javaBean{ beanNamw:'xxx' }

@@ -31,21 +31,6 @@ export const constantRouterMap = [
     component: () => import('@/views/login'), hidden: true
   },
   {
-    path: '/aj/**',
-    component: () => import('@/views/bigScreenReport/aj'),
-    hidden: true
-  },
-  {
-    path:'/adminManagement',
-    component:()=>import('../views/admin/adminManagement'),
-    hidden:true,
-    meta:{
-      title:"管理员管理用户",
-      keepAlive:true,
-      requireAuth:true,
-    }
-  },
-  {
     path: '/index',
     component: Layout,
     name: 'index',
@@ -65,6 +50,28 @@ export const constantRouterMap = [
         }
       },
     ]
+  },
+  {
+    path: '/adminManagement',
+    component: Layout,
+    name: '用户管理',
+    meta: {
+      title: '用户管理',
+      icon: 'iconyonghu'
+    },
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/admin/adminManagement'),
+        meta: {
+          title: "用户管理",
+          icon: 'iconyonghu',
+          keepAlive: true,
+          requireAuth: true,
+        }
+      }
+    ]
+    // hidden:true,
   },
   {
     path: '/data',
@@ -121,55 +128,43 @@ export const constantRouterMap = [
       }
     ]
   },
-  {
-    path: '/access',
-    name: 'access',
-    component: Layout,
-    meta: {
-      title: '用户权限',
-      icon: 'icondfzq-',
-      requireAuth: true,
-      permission: 'authorityManage|roleManage|userManage'
-    },
-    children: [
-      {
-        path: 'authority',
-        name: 'authority',
-        component: () => import('@/views/accessAuthority/index'),
-        meta: {
-          title: '权限管理',
-          icon: 'iconquanxian',
-          keepAlive: true,
-          requireAuth: true,
-          permission: 'authorityManage'
-        }
-      },
-      {
-        path: 'role',
-        name: 'role',
-        component: () => import('@/views/accessRole/index'),
-        meta: {
-          title: '角色管理',
-          icon: 'iconjiaose1',
-          keepAlive: true,
-          requireAuth: true,
-          permission: 'roleManage'
-        }
-      },
-      {
-        path: 'user',
-        name: 'user',
-        component: () => import('@/views/accessUser/index'),
-        meta: {
-          title: '用户管理',
-          icon: 'iconyonghu',
-          keepAlive: true,
-          requireAuth: true,
-          permission: 'userManage'
-        }
-      },
-    ]
-  },
+  // {
+  //   path: '/access',
+  //   name: 'access',
+  //   component: Layout,
+  //   meta: {
+  //     title: '用户权限',
+  //     icon: 'icondfzq-',
+  //     requireAuth: true,
+  //     permission: 'authorityManage|roleManage|userManage'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'role',
+  //       name: 'role',
+  //       component: () => import('@/views/accessRole/index'),
+  //       meta: {
+  //         title: '角色管理',
+  //         icon: 'iconjiaose1',
+  //         keepAlive: true,
+  //         requireAuth: true,
+  //         permission: 'roleManage'
+  //       }
+  //     },
+  //     {
+  //       path: 'user',
+  //       name: 'user',
+  //       component: () => import('@/views/accessUser/index'),
+  //       meta: {
+  //         title: '用户管理',
+  //         icon: 'iconyonghu',
+  //         keepAlive: true,
+  //         requireAuth: true,
+  //         permission: 'userManage'
+  //       }
+  //     },
+  //   ]
+  // },
   {
     path: '/report',
     name: 'report',
@@ -193,18 +188,18 @@ export const constantRouterMap = [
           permission: 'reportManage'
         }
       },
-      {
-        path: 'bigscreen',
-        name: 'bigscreen',
-        component: () => import('@/views/bigScreenReport/index'),
-        meta: {
-          title: '大屏报表',
-          icon: 'iconchufaqipeizhi-hui',
-          keepAlive: true,
-          requireAuth: true,
-          permission: 'bigScreenManage'
-        },
-      },
+      // {
+      //   path: 'bigscreen',
+      //   name: 'bigscreen',
+      //   component: () => import('@/views/bigScreenReport/index'),
+      //   meta: {
+      //     title: '大屏报表',
+      //     icon: 'iconchufaqipeizhi-hui',
+      //     keepAlive: true,
+      //     requireAuth: true,
+      //     permission: 'bigScreenManage'
+      //   },
+      // },
     ]
   },
   {

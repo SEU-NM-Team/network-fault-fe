@@ -10,7 +10,6 @@ import {
   reportDeleteBatch,
   reportUpdate,
   reportDetail,
-  reportCopy,
 } from "@/api/reportmanage";
 import { validateEngOrNum } from "@/utils/validate";
 import { verificationSet } from "@/api/report";
@@ -90,6 +89,7 @@ export default {
             label: "删除",
             permission: "reportManage:delete",
             click: (row) => {
+              console.log(row)
               return this.$refs.listPage.handleDeleteBatch(row);
             },
           },
@@ -140,6 +140,20 @@ export default {
               { min: 1, max: 100, message: "不超过100个字符", trigger: "blur" },
             ],
             disabled: false,
+          },
+          {
+            label: "报表类型",
+            placeholder: "",
+            field: "reportType",
+            editField: "reportType",
+            inputType: "anji-select",
+            fieldTableRowRenderer: row => {
+              return this.getDictLabelByCode("REPORT_TYPE", row["reportType"]);
+            },
+            anjiSelectOption: {
+              dictCode: "REPORT_TYPE"
+            },
+            tableHide: true
           },
           {
             label: "报表编码", //报表编码

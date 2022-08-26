@@ -167,6 +167,3 @@ export default {
   }
 };
 </script>
-
-<!--<style rel="stylesheet/scss" lang="less" scoped>-->
-<!--</style>-->

@@ -233,19 +233,10 @@
         >
       </el-form>
     </div>
-    <!--  验证码  -->
-    <Verify
-      v-if="needCaptcha"
-      ref="verify"
-      :captcha-type="'blockPuzzle'"
-      :img-size="{ width: '400px', height: '200px' }"
-      @success="verifylogin"
-    />
   </div>
 </template>
 
 <script>
-import Verify from "@/components/verifition/Verify";
 import cookies from "js-cookie";
 import { Decrypt, Encrypt } from "@/utils/index";
 import { login } from "@/api/login";
@@ -254,7 +245,6 @@ import { setToken, setAccessUser } from "@/utils/auth";
 export default {
   name: "Login",
   components: {
-    Verify,
   },
   created() {
     document.title = "运营商网络故障数据分析系统"
