@@ -28,7 +28,8 @@ import Layout from '../views/layout/Layout'
 export const constantRouterMap = [
   {
     path: '/login',
-    component: () => import('@/views/login'), hidden: true
+    component: () => import('@/views/login'),
+    hidden: true
   },
   {
     path: '/index',
@@ -174,24 +175,25 @@ export const constantRouterMap = [
       // },
     ]
   },
-  {
-    path: '/bigscreen/viewer',
-    component: () => import('@/views/bigscreenDesigner/viewer'),
-    hidden: true,
-    meta: {
-      requireAuth: true
-    }
-  },
-  {
-    path: '/bigscreen/designer',
-    component: () => import('@/views/bigscreenDesigner/designer'),
-    hidden: true,
-    meta: {
-      requireAuth: true
-    }
-  },
+  // {
+  //   path: '/bigscreen/viewer',
+  //   component: () => import('@/views/bigscreenDesigner/viewer'),
+  //   hidden: true,
+  //   meta: {
+  //     requireAuth: true
+  //   }
+  // },
+  // {
+  //   path: '/bigscreen/designer',
+  //   component: () => import('@/views/bigscreenDesigner/designer'),
+  //   hidden: true,
+  //   meta: {
+  //     requireAuth: true
+  //   }
+  // },
   {
     path: '/404',
+    name: '404',
     component: () => import('@/views/404'),
     hidden: true
   },
@@ -200,6 +202,24 @@ export const constantRouterMap = [
     redirect: '/login',
     hidden: true
   },
+  {
+    path: '/screen/1',
+    component: () => import('@/views/screen/screen1'),
+    hidden: true,
+    meta: {
+      title: '数据大屏',
+      requireAuth: true
+    }
+  },
+  {
+    path: '/screen/2',
+    component: () => import('@/views/screen/screen2'),
+    hidden: true,
+    meta: {
+      title: '数据大屏',
+      requireAuth: true
+    }
+  }
 ]
 
 export default new Router({
