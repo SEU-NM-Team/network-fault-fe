@@ -13,6 +13,7 @@
     >
       <sidebar-item
         v-for="route in routes"
+        v-if="route.userType == '' ? 1 : route.userType == userType"
         :key="route.path"
         :item="route"
         :base-path="route.path"
@@ -23,6 +24,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { getStorageItem } from "../../../../utils/storage";
 import SidebarItem from "./SidebarItem";
 
 export default {
@@ -34,6 +36,10 @@ export default {
     },
     isCollapse() {
       return !this.sidebar.opened;
+    },
+    userType() {
+      var user = getStorageItem('User')
+      return user.loginName
     }
   },
   methods: {

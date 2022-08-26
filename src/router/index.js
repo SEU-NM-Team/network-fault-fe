@@ -32,6 +32,7 @@ export const constantRouterMap = [
   },
   {
     path: '/index',
+    userType: '',
     component: Layout,
     name: 'index',
     meta: {
@@ -52,31 +53,58 @@ export const constantRouterMap = [
     ]
   },
   {
-    path: '/adminManagement',
+    path: '/access',
+    name: 'access',
     component: Layout,
-    name: '用户管理',
+    userType: 'admin',
     meta: {
-      title: '用户管理',
-      icon: 'iconyonghu'
+      title: '用户权限',
+      icon: 'icondfzq-',
+      requireAuth: true,
+      permission: 'authorityManage|roleManage|userManage'
     },
     children: [
       {
-        path: '',
-        component: () => import('@/views/admin/adminManagement'),
+        path: 'user',
+        name: 'user',
+        component: () => import('@/views/accessUser/index'),
         meta: {
-          title: "用户管理",
+          title: '用户管理',
           icon: 'iconyonghu',
           keepAlive: true,
           requireAuth: true,
+          permission: 'userManage'
         }
-      }
+      },
     ]
-    // hidden:true,
   },
+  // {
+  //   path: '/adminManagement',
+  //   component: Layout,
+  //   name: '用户管理',
+  //   meta: {
+  //     title: '用户管理',
+  //     icon: 'iconyonghu'
+  //   },
+  //   children: [
+  //     {
+  //       path: '',
+  //       component: () => import('@/views/admin/adminManagement'),
+  //       meta: {
+  //         title: "用户管理",
+  //         icon: 'iconyonghu',
+  //         keepAlive: true,
+  //         requireAuth: true,
+  //       }
+  //     }
+  //   ]
+  //   // hidden:true,
+  // },
   {
     path: '/data',
     name: 'data',
     component: Layout,
+    userType: 'admin',
     meta: {
       title: '数据管理',
       icon: 'iconnavicon-ywcs'
@@ -109,99 +137,43 @@ export const constantRouterMap = [
     ]
   },
   {
-    path: '/screen',
-    name: 'screen',
+    path: '/report',
+    name: 'report',
     component: Layout,
-    meta: {
-      title: '数据展示',
-      icon: 'iconchufaqipeizhi-hui'
-    },
+    userType: '',
+    // meta: {
+    //   title: '报表设计',
+    //   icon: 'iconnavicon-ywcs',
+    //   requireAuth: true,
+    //   permission: 'datasourceManage|resultsetManage|reportManage|bigScreenManage'
+    // },
     children: [
       {
-        path: '',
-        component: () => import('@/views/screen/index'),
+        path: 'report',
+        name: 'reportIndex',
+        component: () => import('@/views/reportManage/index'),
         meta: {
           title: '数据展示',
           icon: 'iconchufaqipeizhi-hui',
           keepAlive: true,
+          requireAuth: true,
+          permission: 'reportManage'
         }
-      }
+      },
+      // {
+      //   path: 'bigscreen',
+      //   name: 'bigscreen',
+      //   component: () => import('@/views/bigScreenReport/index'),
+      //   meta: {
+      //     title: '大屏报表',
+      //     icon: 'iconchufaqipeizhi-hui',
+      //     keepAlive: true,
+      //     requireAuth: true,
+      //     permission: 'bigScreenManage'
+      //   },
+      // },
     ]
   },
-  // {
-  //   path: '/access',
-  //   name: 'access',
-  //   component: Layout,
-  //   meta: {
-  //     title: '用户权限',
-  //     icon: 'icondfzq-',
-  //     requireAuth: true,
-  //     permission: 'authorityManage|roleManage|userManage'
-  //   },
-  //   children: [
-  //     {
-  //       path: 'role',
-  //       name: 'role',
-  //       component: () => import('@/views/accessRole/index'),
-  //       meta: {
-  //         title: '角色管理',
-  //         icon: 'iconjiaose1',
-  //         keepAlive: true,
-  //         requireAuth: true,
-  //         permission: 'roleManage'
-  //       }
-  //     },
-  //     {
-  //       path: 'user',
-  //       name: 'user',
-  //       component: () => import('@/views/accessUser/index'),
-  //       meta: {
-  //         title: '用户管理',
-  //         icon: 'iconyonghu',
-  //         keepAlive: true,
-  //         requireAuth: true,
-  //         permission: 'userManage'
-  //       }
-  //     },
-  //   ]
-  // },
-  // {
-  //   path: '/report',
-  //   name: 'report',
-  //   component: Layout,
-  //   meta: {
-  //     title: '报表设计',
-  //     icon: 'iconnavicon-ywcs',
-  //     requireAuth: true,
-  //     permission: 'datasourceManage|resultsetManage|reportManage|bigScreenManage'
-  //   },
-  //   children: [
-  //     {
-  //       path: 'report',
-  //       name: 'reportIndex',
-  //       component: () => import('@/views/reportManage/index'),
-  //       meta: {
-  //         title: '报表管理',
-  //         icon: 'iconnavicon-ywcs',
-  //         keepAlive: true,
-  //         requireAuth: true,
-  //         permission: 'reportManage'
-  //       }
-  //     },
-  //     {
-  //       path: 'bigscreen',
-  //       name: 'bigscreen',
-  //       component: () => import('@/views/bigScreenReport/index'),
-  //       meta: {
-  //         title: '大屏报表',
-  //         icon: 'iconchufaqipeizhi-hui',
-  //         keepAlive: true,
-  //         requireAuth: true,
-  //         permission: 'bigScreenManage'
-  //       },
-  //     },
-  //   ]
-  // },
   {
     path: '/bigscreen/viewer',
     component: () => import('@/views/bigscreenDesigner/viewer'),
