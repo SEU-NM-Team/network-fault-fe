@@ -1,29 +1,182 @@
 <template>
-  <div class="update-demo">
-    <dv-border-box-1>
-      <dv-scroll-board :config="config" style="width:500px;height:220px" />
-    </dv-border-box-1>
+ <div class="verify-line">
+    <v-chart :options="lineOption"
+             autoresize />
   </div>
-
 </template>
-
 <script>
+import 'echarts/lib/chart/line'
+import 'echarts/lib/component/axis'
+import 'echarts/lib/component/tooltip'
 export default {
-  header: ['列1', '列2', '列3'],
-  data: [
-    ['行1列1', '行1列2', '行1列3'],
-    ['行2列1', '行2列2', '行2列3'],
-    ['行3列1', '行3列2', '行3列3'],
-    ['行4列1', '行4列2', '行4列3'],
-    ['行5列1', '行5列2', '行5列3'],
-    ['行6列1', '行6列2', '行6列3'],
-    ['行7列1', '行7列2', '行7列3'],
-    ['行8列1', '行8列2', '行8列3'],
-    ['行9列1', '行9列2', '行9列3'],
-    ['行10列1', '行10列2', '行10列3']
-  ],
-  index: true,
-  columnWidth: [50],
-  align: ['center']
+  props: {
+    info: {//这里是传进来的折线图数据
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
+  data() {
+    const splitLineStyle = {
+      show: true,
+      lineStyle: {
+        color: ['rgb(241, 241, 241)'],
+        width: 1,
+        type: 'solid'
+      }
+    }
+
+    // 坐标轴线样式
+    const axisLine = {
+      show: true,
+      lineStyle: {
+        color: 'rgb(241, 241, 241, .5)'
+      }
+    }
+
+    // 坐标文字样式
+    const axisLabel = {
+      interval: 0,
+      textStyle: {
+        color: '#50576A' // 坐标值得具体的颜色
+      }
+    }
+    return {
+      lineOption: {
+        // 调整边距(上下左右)
+        grid: {
+          left: '1%',
+          right: '1%',
+          bottom: '2%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false, // 坐标轴两边留白
+          data: [],
+          axisLine: axisLine,
+          axisLabel: {
+            // 坐标轴刻度标签的相关设置
+            interval: 0, // 如果设置为 1，表示『隔一个标签显示一个标签』
+            textStyle: {
+              color: '#50576A' // 坐标值得具体的颜色
+            },
+            // 坐标轴文字的显示格式
+            formatter: function (params) {
+              return params + '月'
+            }
+          }
+        },
+        yAxis: {
+          type: 'value',
+          boundaryGap: [0, '30%'],
+          axisLine: axisLine,
+          axisLabel: axisLabel,
+          splitLine: splitLineStyle,
+          // 不显示坐标轴刻度
+          axisTick: {
+            show: false
+          }
+        },
+        // 高亮提示设置
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            lineStyle: {
+              color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: '#3AD4A7'
+                  },
+                  {
+                    offset: 1,
+                    color: '#3AD4A7'
+                  }
+                ],
+                global: false
+              }
+            }
+          }
+        },
+        series: [
+          {
+            type: 'line',
+            smooth: true,
+            showSymbol: true, // 显示转折点变大
+            symbol: 'circle', // 设定为实心点
+            symbolSize: 1, // 设定实心点的大小
+            lineStyle: {
+              // 数据线的样式
+              color: '#4669F5',
+              width: 3
+            },
+            itemStyle: {
+              normal: {
+                // 配置转折点的样式
+                color: '#3AD4A7'
+              }
+            },
+            areaStyle: {
+              color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: 'rgba(70, 105, 245, .8)' // 0% 处的颜色
+                  },
+                  {
+                    offset: 0.5,
+                    color: 'rgba(255, 255, 255, 0.5)' // 100% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgba(255, 255, 255, 0.5)' // 100% 处的颜色
+                  }
+                ]
+              }
+            },
+            data: []
+          }
+        ]
+      }
+    }
+  },
+  watch: {//深度监听传过来的折线图数据
+    info: {
+      immediate: true,
+      deep: true,
+      handler(val) {
+        if (val && val.length) {
+          let xAxis = []
+          let yAxis = []
+          val.forEach((item, index) => {
+            xAxis.push(item.month)
+            yAxis.push(item.total)
+          })
+          this.lineOption.series[0].data = yAxis
+          this.lineOption.xAxis.data = xAxis
+        } else {
+          const lineLen = 12
+          let xAxis = []
+          for (let i = 1; i <= lineLen; i++) {
+            xAxis.push(i)
+          }
+          this.lineOption.series[0].data = []
+          this.lineOption.xAxis.data = xAxis
+        }
+      }
+    }
+  }
 }
 </script>

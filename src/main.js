@@ -17,8 +17,6 @@ import mixins from '@/mixins'
 import echarts from 'echarts';
 // 全局定义echarts
 import ECharts from 'vue-echarts'
-import 'echarts/lib/chart/bar'
-import 'echarts/lib/component/tooltip'
 //import 'echarts-liquidfill'
 // import 'echarts-gl'
 Vue.component('v-chart', ECharts)

@@ -71,7 +71,7 @@ export function initDictToLocalstorage(callback) {
     }
 
     // 保存数据字典到localStorage
-    setStorageItem('AJReportDict', res.data)
+    setStorageItem('Dict', res.data)
     if (callback != null) {
       callback()
     }

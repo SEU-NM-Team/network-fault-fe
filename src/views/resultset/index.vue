@@ -8,10 +8,8 @@
         </el-button>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="sql">SQL</el-dropdown-item>
-          <el-dropdown-item command="http">HTTP</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <el-button type="primary" icon="el-icon-plus" @click="operateDataset()">新增</el-button>
     </template>
 
     <template v-slot:pageSection>
@@ -300,6 +298,7 @@ export default {
     },
     dataView(prop) {
       this.dialogCaseResult = true;
+      // console.log(prop)
       this.$refs.DataView.dataViewPreview(
         prop.setName,
         JSON.parse(prop.caseResult)

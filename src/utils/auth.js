@@ -1,8 +1,8 @@
 import { getStorageItem, setStorageItem, delStorageItem } from '@/utils/storage'
 
-const TokenKey = 'AJReportToken'
+const TokenKey = 'Token'
 const ShareTokenKey = 'AJReportShareToken'
-const AccessUserKey = 'AJReportUser'
+const AccessUserKey = 'User'
 
 export function getToken() {
   return getStorageItem(TokenKey)

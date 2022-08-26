@@ -30,7 +30,7 @@
 
 "@babel/runtime@^7.5.5":
   version "7.18.9"
-  resolved "https://registry.npmmirror.com/@babel/runtime/-/runtime-7.18.9.tgz#b4fcfce55db3d2e5e080d2490f608a3b9f407f4a"
+  resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.18.9.tgz"
   integrity sha512-lkqXDcvlFT5rvEjiu6+QYO+1GXrEHRo2LOtS7E4GtX5ESIZOgepqsZBVIj6Pv+a6zqsya9VCgiK1KAK4BvJDAw==
   dependencies:
     regenerator-runtime "^0.13.4"
@@ -47,14 +47,14 @@
 
 "@jiaminghi/bezier-curve@*":
   version "0.0.9"
-  resolved "https://registry.npmmirror.com/@jiaminghi/bezier-curve/-/bezier-curve-0.0.9.tgz#5196aca93c8b061a612b4c3eabcedf9490cef6ee"
+  resolved "https://registry.npmjs.org/@jiaminghi/bezier-curve/-/bezier-curve-0.0.9.tgz"
   integrity sha512-u9xJPOEl6Dri2E9FfmJoGxYQY7vYJkURNX04Vj64tdi535tPrpkuf9Sm0lNr3QTKdHQh0DdNRsaa62FLQNQEEw==
   dependencies:
     "@babel/runtime" "^7.5.5"
 
 "@jiaminghi/c-render@^0.4.3":
   version "0.4.3"
-  resolved "https://registry.npmmirror.com/@jiaminghi/c-render/-/c-render-0.4.3.tgz#982ebd8f71b443bb9507834227834973ebd9b6d8"
+  resolved "https://registry.npmjs.org/@jiaminghi/c-render/-/c-render-0.4.3.tgz"
   integrity sha512-FJfzj5hGj7MLqqqI2D7vEzHKbQ1Ynnn7PJKgzsjXaZpJzTqs2Yw5OSeZnm6l7Qj7jyPAP53lFvEQNH4o4j6s+Q==
   dependencies:
     "@babel/runtime" "^7.5.5"
@@ -64,7 +64,7 @@
 
 "@jiaminghi/charts@*":
   version "0.2.18"
-  resolved "https://registry.npmmirror.com/@jiaminghi/charts/-/charts-0.2.18.tgz#63ded95200789fc1a1fd04b7fd9e56f58d22d90f"
+  resolved "https://registry.npmjs.org/@jiaminghi/charts/-/charts-0.2.18.tgz"
   integrity sha512-K+HXaOOeWG9OOY1VG6M4mBreeeIAPhb9X+khG651AbnwEwL6G2UtcAQ8GWCq6GzhczcLwwhIhuaHqRygwHC0sA==
   dependencies:
     "@babel/runtime" "^7.5.5"
@@ -72,14 +72,14 @@
 
 "@jiaminghi/color@*":
   version "0.1.1"
-  resolved "https://registry.npmmirror.com/@jiaminghi/color/-/color-0.1.1.tgz#bddf9012dfce6982d3829a983ffeb91ee9dda7b6"
+  resolved "https://registry.npmjs.org/@jiaminghi/color/-/color-0.1.1.tgz"
   integrity sha512-M09+Sb5HGqVim0zo+nG5gU1v+6gXT8ptr0BZR6dMGt83XmCJgnZtO8s7llTW4hLFFFM5co6geZvTekqLpSPAAQ==
   dependencies:
     "@babel/runtime" "^7.5.5"
 
 "@jiaminghi/data-view@^2.10.0":
   version "2.10.0"
-  resolved "https://registry.npmmirror.com/@jiaminghi/data-view/-/data-view-2.10.0.tgz#2146d8fc71b9f24be808238ca050ddb7a4c8949f"
+  resolved "https://registry.npmjs.org/@jiaminghi/data-view/-/data-view-2.10.0.tgz"
   integrity sha512-Cud2MTiMcqc5k2KWabR/svuVQmXHANqURo+yj40370/LdI/gyUJ6LG203hWXEnT1nMCeiv/SLVmxv3PXLScCeA==
   dependencies:
     "@babel/runtime" "^7.5.5"
@@ -87,7 +87,7 @@
 
 "@jiaminghi/transition@*":
   version "1.1.11"
-  resolved "https://registry.npmmirror.com/@jiaminghi/transition/-/transition-1.1.11.tgz#576d8af092434b34201eba5eaecc79dd33c8ad8c"
+  resolved "https://registry.npmjs.org/@jiaminghi/transition/-/transition-1.1.11.tgz"
   integrity sha512-owBggipoHMikDHHDW5Gc7RZYlVuvxHADiU4bxfjBVkHDAmmck+fCkm46n2JzC3j33hWvP9nSCAeh37t6stgWeg==
   dependencies:
     "@babel/runtime" "^7.5.5"
@@ -169,6 +169,11 @@
     prettier "1.16.3"
     source-map "~0.6.1"
     vue-template-es2015-compiler "^1.9.0"
+
+"@vue/composition-api@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.npmjs.org/@vue/composition-api/-/composition-api-1.7.0.tgz"
+  integrity sha512-hxOgLYR+wjuPX9bkP2pAPlqUs98XxBoa9DSLyp1z6+YR92wC42PZcZKs4d+VRtcv4udOv041Kss+F6ap5nj8YA==
 
 "@webassemblyjs/ast@1.5.13":
   version "1.5.13"
@@ -2916,7 +2921,7 @@ echarts-gl@^1.1.1:
 
 echarts@^4.9.0:
   version "4.9.0"
-  resolved "https://registry.npmmirror.com/echarts/-/echarts-4.9.0.tgz"
+  resolved "https://registry.npmjs.org/echarts/-/echarts-4.9.0.tgz"
   integrity sha512-+ugizgtJ+KmsJyyDPxaw2Br5FqzuBnyOWwcxPKO6y0gc5caYcfnEUIlNStx02necw8jmKmTafmpHhGo4XDtEIA==
   dependencies:
     zrender "4.3.2"
@@ -4639,7 +4644,7 @@ is-wsl@^1.1.0:
 
 isarray@0.0.1:
   version "0.0.1"
-  resolved "https://registry.npmmirror.com/isarray/-/isarray-0.0.1.tgz#8a18acfca9a8f4177e09abfc6038939b05d1eedf"
+  resolved "https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz"
   integrity sha512-D2S+3GLxWH+uhrNEcoh/fnmYeP8E8/zHl644d/jdA0g2uyXvy3sb0qxotE+ne0LtccHknQzWwZEzhak7oJ0COQ==
 
 isarray@1.0.0, isarray@^1.0.0, isarray@~1.0.0:
@@ -5720,7 +5725,7 @@ npmlog@^6.0.0:
 
 nprogress@^0.2.0:
   version "0.2.0"
-  resolved "https://registry.npmmirror.com/nprogress/-/nprogress-0.2.0.tgz#cb8f34c53213d895723fcbab907e9422adbcafb1"
+  resolved "https://registry.npmmirror.com/nprogress/-/nprogress-0.2.0.tgz"
   integrity sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==
 
 nth-check@^1.0.1, nth-check@^1.0.2:
@@ -6004,7 +6009,7 @@ p-try@^2.0.0:
 
 page@^1.5.0:
   version "1.11.6"
-  resolved "https://registry.npmmirror.com/page/-/page-1.11.6.tgz#5ef4efc7073749b8085ccdaa0dcd7c9e0de12fe3"
+  resolved "https://registry.npmjs.org/page/-/page-1.11.6.tgz"
   integrity sha512-P6e2JfzkBrPeFCIPplLP7vDDiU84RUUZMrWdsH4ZBGJ8OosnwFkcUkBHp1DTIjuipLliw9yQn/ZJsXZvarsO+g==
   dependencies:
     path-to-regexp "~1.2.1"
@@ -6140,7 +6145,7 @@ path-to-regexp@2.4.0:
 
 path-to-regexp@~1.2.1:
   version "1.2.1"
-  resolved "https://registry.npmmirror.com/path-to-regexp/-/path-to-regexp-1.2.1.tgz#b33705c140234d873c8721c7b9fd8b541ed3aff9"
+  resolved "https://registry.npmjs.org/path-to-regexp/-/path-to-regexp-1.2.1.tgz"
   integrity sha512-DBw9IhWfevR2zCVwEZURTuQNseCvu/Q9f5ZgqMCK0Rh61bDa4uyjPAOy9b55yKiPT59zZn+7uYKxmWwsguInwg==
   dependencies:
     isarray "0.0.1"
@@ -6987,7 +6992,7 @@ regenerator-runtime@^0.11.0:
 
 regenerator-runtime@^0.13.4:
   version "0.13.9"
-  resolved "https://registry.npmmirror.com/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz#8925742a98ffd90814988d7566ad30ca3b263b52"
+  resolved "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz"
   integrity sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==
 
 regenerator-transform@^0.10.0:
@@ -8543,7 +8548,7 @@ vue-drag-resize@^1.5.0-rc3, vue-drag-resize@^1.5.4:
 
 vue-echarts@^5.0.0-beta.0:
   version "5.0.0-beta.0"
-  resolved "https://registry.npmmirror.com/vue-echarts/-/vue-echarts-5.0.0-beta.0.tgz"
+  resolved "https://registry.npmjs.org/vue-echarts/-/vue-echarts-5.0.0-beta.0.tgz"
   integrity sha512-QZFKGXDAYFQo+F20REpzcdLx79nsl4kOorJRpN+08aYq4YiIlmtWss1Lxadm7Fo+NYyWm8nnT+h4xHv3uqWIDQ==
   dependencies:
     core-js "^3.4.4"
@@ -8575,7 +8580,7 @@ vue-loader@15.3.0:
 
 vue-route@^1.5.1:
   version "1.5.1"
-  resolved "https://registry.npmmirror.com/vue-route/-/vue-route-1.5.1.tgz#d64d13f20988438936f60d3d2bf187ca448ad7d3"
+  resolved "https://registry.npmjs.org/vue-route/-/vue-route-1.5.1.tgz"
   integrity sha512-RoeEWvSTk/Zasjx11En4XPyE1jXwuFQ4Itr4fzh1TOSMYefUddhhlHXmAGFFPn37J1YrEymm6sU/3IRTyu23Aw==
   dependencies:
     page "^1.5.0"

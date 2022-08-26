@@ -80,7 +80,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row v-if="this.setType == 'http'">
+        <!-- <el-row v-if="this.setType == 'http'">
           <el-form-item label="请求路径">
             <el-input
               placeholder="请输入请求路径..."
@@ -113,7 +113,7 @@
               placeholder="请输入请求体..."
             />
           </el-form-item>
-        </el-row>
+        </el-row> -->
         <el-row :gutter="10">
           <el-col :xs="24" :sm="20" :md="22" :lg="22" :xl="22">
             <el-form label-width="100px" class="demo-ruleForm">

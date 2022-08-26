@@ -165,43 +165,43 @@ export const constantRouterMap = [
   //     },
   //   ]
   // },
-  {
-    path: '/report',
-    name: 'report',
-    component: Layout,
-    meta: {
-      title: '报表设计',
-      icon: 'iconnavicon-ywcs',
-      requireAuth: true,
-      permission: 'datasourceManage|resultsetManage|reportManage|bigScreenManage'
-    },
-    children: [
-      {
-        path: 'report',
-        name: 'reportIndex',
-        component: () => import('@/views/reportManage/index'),
-        meta: {
-          title: '报表管理',
-          icon: 'iconnavicon-ywcs',
-          keepAlive: true,
-          requireAuth: true,
-          permission: 'reportManage'
-        }
-      },
-      // {
-      //   path: 'bigscreen',
-      //   name: 'bigscreen',
-      //   component: () => import('@/views/bigScreenReport/index'),
-      //   meta: {
-      //     title: '大屏报表',
-      //     icon: 'iconchufaqipeizhi-hui',
-      //     keepAlive: true,
-      //     requireAuth: true,
-      //     permission: 'bigScreenManage'
-      //   },
-      // },
-    ]
-  },
+  // {
+  //   path: '/report',
+  //   name: 'report',
+  //   component: Layout,
+  //   meta: {
+  //     title: '报表设计',
+  //     icon: 'iconnavicon-ywcs',
+  //     requireAuth: true,
+  //     permission: 'datasourceManage|resultsetManage|reportManage|bigScreenManage'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'report',
+  //       name: 'reportIndex',
+  //       component: () => import('@/views/reportManage/index'),
+  //       meta: {
+  //         title: '报表管理',
+  //         icon: 'iconnavicon-ywcs',
+  //         keepAlive: true,
+  //         requireAuth: true,
+  //         permission: 'reportManage'
+  //       }
+  //     },
+  //     {
+  //       path: 'bigscreen',
+  //       name: 'bigscreen',
+  //       component: () => import('@/views/bigScreenReport/index'),
+  //       meta: {
+  //         title: '大屏报表',
+  //         icon: 'iconchufaqipeizhi-hui',
+  //         keepAlive: true,
+  //         requireAuth: true,
+  //         permission: 'bigScreenManage'
+  //       },
+  //     },
+  //   ]
+  // },
   {
     path: '/bigscreen/viewer',
     component: () => import('@/views/bigscreenDesigner/viewer'),
