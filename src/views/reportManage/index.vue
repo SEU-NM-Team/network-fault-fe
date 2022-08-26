@@ -79,12 +79,13 @@ export default {
             label: "预览",
             permission: "bigScreenManage:view",
             click: this.preview,
+            // click: this.$router.push({name: '404'})
           },
-          {
-            label: "设计",
-            permission: "bigScreenManage:design",
-            click: this.design,
-          },
+          // {
+          //   label: "设计",
+          //   permission: "bigScreenManage:design",
+          //   click: this.design,
+          // },
           {
             label: "删除",
             permission: "reportManage:delete",
@@ -130,19 +131,19 @@ export default {
             editHide: true, // 编辑弹框中不显示
           },
           {
-            label: "报表名称", //名称
+            label: "图表名称名称", //名称
             placeholder: "",
             field: "reportName",
             editField: "reportName",
             inputType: "input",
             rules: [
-              { required: true, message: "请输入报表名称", trigger: "blur" },
+              { required: true, message: "请输入图表名称", trigger: "blur" },
               { min: 1, max: 100, message: "不超过100个字符", trigger: "blur" },
             ],
             disabled: false,
           },
           {
-            label: "报表类型",
+            label: "图表类型",
             placeholder: "",
             field: "reportType",
             editField: "reportType",
@@ -156,7 +157,7 @@ export default {
             tableHide: true
           },
           {
-            label: "报表编码", //报表编码
+            label: "图表编码", //报表编码
             placeholder: "唯一标识",
             field: "reportCode",
             editField: "reportCode",
@@ -260,13 +261,12 @@ export default {
     },
     // 预览
     preview(val) {
-      let routePath = "/bigscreen/viewer";
-      let routeUrl = this.$router.resolve({
-        path: routePath,
-        query: { reportCode: val.reportCode },
-      });
-      console.log(routeUrl)
-      window.open(routeUrl.href, "_blank");
+      let routePath = "/screen/";
+      let path = window.location.href;
+      path = (path.split('#'))[0]
+      path = path + '#' + routePath + val.reportCode
+      console.log(path)
+      window.open(path, "_blank")
     },
     // 设计
     design(val) {
