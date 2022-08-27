@@ -90,7 +90,7 @@ export default {
             label: "删除",
             permission: "reportManage:delete",
             click: (row) => {
-              console.log(row)
+              console.log(row);
               return this.$refs.listPage.handleDeleteBatch(row);
             },
           },
@@ -148,13 +148,13 @@ export default {
             field: "reportType",
             editField: "reportType",
             inputType: "anji-select",
-            fieldTableRowRenderer: row => {
+            fieldTableRowRenderer: (row) => {
               return this.getDictLabelByCode("REPORT_TYPE", row["reportType"]);
             },
             anjiSelectOption: {
-              dictCode: "REPORT_TYPE"
+              dictCode: "REPORT_TYPE",
             },
-            tableHide: true
+            tableHide: true,
           },
           {
             label: "图表编码", //报表编码
@@ -263,10 +263,10 @@ export default {
     preview(val) {
       let routePath = "/screen/";
       let path = window.location.href;
-      path = (path.split('#'))[0]
-      path = path + '#' + routePath + val.reportCode
-      console.log(path)
-      window.open(path, "_blank")
+      path = path.split("#")[0];
+      path = path + "#" + routePath + val.reportCode;
+      console.log(path);
+      window.open(path, "_blank");
     },
     // 设计
     design(val) {
