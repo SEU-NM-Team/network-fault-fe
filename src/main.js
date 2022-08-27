@@ -15,6 +15,7 @@ import store from './store'
 import * as filter from './filter'
 import mixins from '@/mixins'
 import echarts from 'echarts';
+Vue.prototype.$echarts = echarts
 // 全局定义echarts
 import ECharts from 'vue-echarts'
 //import 'echarts-liquidfill'
