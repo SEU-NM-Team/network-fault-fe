@@ -34,6 +34,7 @@ router.beforeEach((to, from, next) => {
     document.title = to.meta.title
 
   }
+  document.querySelector('body').setAttribute('style', 'margin:0;padding:0')
 })
 
 router.afterEach(() => {

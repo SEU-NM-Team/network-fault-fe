@@ -37,7 +37,7 @@
           </div>
           <div class="d-flex aside-width">
             <div class="react-right bg-color-blue mr-3">
-              <span class="text fw-b">vue-big-screen</span>
+              <span class="text fw-b">点击图表以全屏</span>
             </div>
             <div class="react-right mr-4 react-l-s">
               <span class="react-after"></span>
@@ -101,6 +101,7 @@ import centerRight2 from "../centerRight2";
 import center from "../center";
 import bottomLeft from "../bottomLeft";
 import bottomRight from "../bottomRight";
+import ScreenFull from 'screenfull'
 
 export default {
   mixins: [drawMixin],
@@ -113,6 +114,7 @@ export default {
       dateWeek: null,
       weekday: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
       decorationColor: ["#568aea", "#000000"],
+
     };
   },
   components: {
