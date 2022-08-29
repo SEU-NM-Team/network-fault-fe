@@ -5,7 +5,9 @@
 <script>
 import tdTheme from "./theme.json"; // 引入默认主题
 import "echarts/map/js/province/guangdong.js";
-
+import "echarts/map/js/province/guangxi.js";
+import "echarts/map/js/province/xinjiang.js";
+import "echarts/map/js/province/gansu.js";
 export default {
   name: "echart",
   props: {
