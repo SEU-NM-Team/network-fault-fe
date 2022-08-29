@@ -24,32 +24,7 @@
           <dv-decoration-10 class="dv-dec-10-s" />
         </div>
 
-        <!-- 第二行 -->
-        <div class="d-flex jc-between px-2">
-          <div class="d-flex aside-width">
-            <div class="react-left ml-4 react-l-s">
-              <span class="react-left"></span>
-              <span class="text">数据分析1</span>
-            </div>
-            <div class="react-left ml-3">
-              <span class="text">数据分析2</span>
-            </div>
-          </div>
-          <div class="d-flex aside-width">
-            <div class="react-right bg-color-blue mr-3">
-              <span class="text fw-b">点击图表以全屏</span>
-            </div>
-            <div class="react-right mr-4 react-l-s">
-              <span class="react-after"></span>
-              <span class="text"
-                >{{ dateYear }} {{ dateWeek }} {{ dateDay }}</span
-              >
-            </div>
-          </div>
-        </div>
-
         <div class="body-box">
-          <!-- 第三行数据 -->
           <div class="content-box">
             <div>
               <dv-border-box-12>
