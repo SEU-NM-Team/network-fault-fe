@@ -31,11 +31,14 @@
                 <centerLeft1 />
               </dv-border-box-12>
             </div>
-            <div>
-              <dv-border-box-12>
-                <centerLeft2 />
-              </dv-border-box-12>
-            </div>
+            <fullscreen v-model="fullscreen">
+              <div>
+                  <dv-border-box-12>
+                  <button type="button" @click="toggle" >Fullscreen</button>
+                  <centerLeft2 />
+                  </dv-border-box-12>
+              </div>
+            </fullscreen>
             <!-- 中间 -->
             <div>
               <center />
@@ -76,7 +79,6 @@ import centerRight2 from "../centerRight2";
 import center from "../center";
 import bottomLeft from "../bottomLeft";
 import bottomRight from "../bottomRight";
-import ScreenFull from 'screenfull'
 
 export default {
   mixins: [drawMixin],
@@ -89,7 +91,7 @@ export default {
       dateWeek: null,
       weekday: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
       decorationColor: ["#568aea", "#000000"],
-
+      fullscreen: false
     };
   },
   components: {
@@ -121,6 +123,9 @@ export default {
         this.loading = false;
       }, 500);
     },
+     toggle () {
+        this.fullscreen = !this.fullscreen
+      },
   },
 };
 </script>

@@ -7526,6 +7526,11 @@
   "resolved" "https://registry.npmjs.org/screenfull/-/screenfull-4.2.1.tgz"
   "version" "4.2.1"
 
+"screenfull@^5.1.0":
+  "integrity" "sha512-9BakfsO2aUQN2K9Fdbj87RJIEZ82Q9IGim7FqM5OsebfoFC6ZHXgDq/KvniuLTPdeM8wY2o6Dj3WQ7KeQCj3cA=="
+  "resolved" "https://registry.npmjs.org/screenfull/-/screenfull-5.2.0.tgz"
+  "version" "5.2.0"
+
 "script-ext-html-webpack-plugin@2.0.1":
   "integrity" "sha512-kUH+XhpjG95ABMnWeKCguM7NCOqSrGlYEnJQKgvPIyq5+FzQuACMLzWOB/Lp7t0sKqKLWNLu8i6MmLRKRo1IUw=="
   "resolved" "https://registry.npmmirror.com/script-ext-html-webpack-plugin/-/script-ext-html-webpack-plugin-2.0.1.tgz"
@@ -8846,6 +8851,13 @@
     "core-js" "^3.4.4"
     "lodash" "^4.17.15"
     "resize-detector" "^0.1.10"
+
+"vue-fullscreen@^2.6.1":
+  "integrity" "sha512-bbMJDKj2ZhsAwLcsvh8oV8WJeqAr2zxTHysvf7H8wSqaJTn5CnHXMSMbP9Tz4L/54I7jNQIdyA7VZ+EKAG+svg=="
+  "resolved" "https://registry.npmjs.org/vue-fullscreen/-/vue-fullscreen-2.6.1.tgz"
+  "version" "2.6.1"
+  dependencies:
+    "screenfull" "^5.1.0"
 
 "vue-hot-reload-api@^2.3.0":
   "integrity" "sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog=="

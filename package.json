@@ -39,6 +39,7 @@
     "vue-color": "^2.8.1",
     "vue-drag-resize": "^1.5.4",
     "vue-echarts": "^5.0.0-beta.0",
+    "vue-fullscreen": "^2.6.1",
     "vue-json-editor": "^1.4.3",
     "vue-route": "^1.5.1",
     "vue-router": "3.0.1",

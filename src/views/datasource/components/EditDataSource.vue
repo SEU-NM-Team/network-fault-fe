@@ -67,7 +67,8 @@
           :xl="24"
         >
           <el-form-item :label="data.labelValue">
-            <el-input v-model.trim="data.value" />
+            <el-input v-if="data.label == 'password'" v-model.trim="data.value" show-password></el-input>
+            <el-input v-else v-model.trim="data.value" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -191,6 +192,7 @@ export default {
       // console.log('!!!', this.dictionaryOptions)
       this.dialogForm.sourceType = this.dictionaryOptions[0].text;
       this.dataLink = JSON.parse(this.dictionaryOptions[0].extend);
+      // console.log(this.dataLink)
       this.setDataSource();
     },
     // 关闭模态框

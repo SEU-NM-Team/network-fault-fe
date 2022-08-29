@@ -55,6 +55,8 @@ Object.keys(filter).forEach(key => {
 // register global mixins.
 Vue.mixin(mixins)
 
+import VueFullscreen from 'vue-fullscreen'
+Vue.use(VueFullscreen)
 
 // 分页的全局size配置;
 Vue.prototype.$pageSizeAll = [10, 50, 100, 200, 500]
