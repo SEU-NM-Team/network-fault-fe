@@ -30,14 +30,7 @@ export default {
       },
       cdata2: {
         xData: ["a1", "a2", "a3", "a4", "a5", "a6"],
-        fault: [
-          { value: 10, name: "a1" },
-          { value: 5, name: "a2" },
-          { value: 15, name: "a3" },
-          { value: 25, name: "a4" },
-          { value: 20, name: "a5" },
-          { value: 35, name: "a6" },
-        ],
+        fault: [],
         title: "二类故障",
         titleLeft: "45%",
         faultCenter: ["55%", "60%"],
@@ -47,11 +40,26 @@ export default {
   components: {
     Chart,
   },
-  mounted() {
-    this.getData();
-  },
+  mounted() {},
   methods: {
-    getData() {},
+    async setCdata() {
+      this.cdata1["fault"] = await this.getCData("fault_1");
+      this.cdata2["fault"] = await this.getCData("again_2");
+    },
+    async getCData(setName) {
+      let queryParams = {};
+      let a = [];
+      queryParams["setName"] = setName;
+      let params = this.urlEncodeObject(queryParams);
+      const { data, code } = await reportDataSetList(params);
+      if (code != "200") return;
+      let temp = JSON.parse(data.records[0].caseResult);
+      temp.map((k) => {
+        k = k.sum;
+        a.push(k);
+      });
+      return a;
+    },
   },
 };
 </script>

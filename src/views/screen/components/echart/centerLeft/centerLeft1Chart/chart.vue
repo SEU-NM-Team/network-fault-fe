@@ -3,7 +3,7 @@
     <Echart
       :options="options"
       id="centreLeft1Chart"
-      height="400px"
+      height="500px"
       width="100%"
     ></Echart>
   </div>
@@ -114,11 +114,11 @@ export default {
               fontSize: 16,
             },
             top: 50,
-            left: 80,
+            left: 50,
           },
           legend: {
             top: 120,
-            left: 80,
+            left: 50,
             orient: "vertical",
             itemGap: 15,
             itemWidth: 12,
@@ -128,8 +128,8 @@ export default {
             trigger: "item",
           },
           radar: {
-            center: ["68%", "27%"],
-            radius: "40%",
+            center: ["50%", "50%"],
+            radius: "70%",
             name: {
               color: "#fff",
             },
@@ -175,12 +175,12 @@ export default {
               },
             ],
           },
-          grid: {
-            left: 90,
-            right: 80,
-            bottom: 40,
-            top: "60%",
-          },
+          // grid: {
+          //   left: 90,
+          //   right: 80,
+          //   bottom: 40,
+          //   top: "60%",
+          // },
           series: [
             {
               name: "",
