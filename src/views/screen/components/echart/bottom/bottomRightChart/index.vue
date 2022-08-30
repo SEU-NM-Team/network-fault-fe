@@ -1,6 +1,11 @@
 <template>
   <div>
-    <Chart :cdata="cdata" />
+    <div class="left">
+      <Chart :cdata="cdata1" />
+    </div>
+    <div class="right">
+      <Chart :cdata="cdata2" />
+    </div>
   </div>
 </template>
 
@@ -9,12 +14,33 @@ import Chart from "./chart.vue";
 export default {
   data() {
     return {
-      drawTiming: null,
-      cdata: {
-        year: null,
-        weekCategory: [],
-        radarData: [],
-        maxData: 12000,
+      cdata1: {
+        xData: ["data1", "data2", "data3", "data4", "data5", "data6"],
+        fault: [
+          { value: 10, name: "data1" },
+          { value: 5, name: "data2" },
+          { value: 15, name: "data3" },
+          { value: 25, name: "data4" },
+          { value: 20, name: "data5" },
+          { value: 35, name: "data6" },
+        ],
+        title: "一类故障",
+        titleLeft: "40%",
+        faultCenter: ["50%", "60%"],
+      },
+      cdata2: {
+        xData: ["a1", "a2", "a3", "a4", "a5", "a6"],
+        fault: [
+          { value: 10, name: "a1" },
+          { value: 5, name: "a2" },
+          { value: 15, name: "a3" },
+          { value: 25, name: "a4" },
+          { value: 20, name: "a5" },
+          { value: 35, name: "a6" },
+        ],
+        title: "二类故障",
+        titleLeft: "45%",
+        faultCenter: ["55%", "60%"],
       },
     };
   },
@@ -22,24 +48,21 @@ export default {
     Chart,
   },
   mounted() {
-    this.setData();
+    this.getData();
   },
   methods: {
-    setData() {
-      let dateBase = new Date();
-      this.cdata.year = dateBase.getFullYear();
-      // 周数据
-      for (let i = 0; i < 7; i++) {
-        // 日期
-        let date = new Date();
-        this.cdata.weekCategory.unshift(
-          [date.getMonth() + 1, date.getDate() - i].join("/")
-        );
-      }
-    },
+    getData() {},
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.left {
+  float: left;
+  width: 50%;
+}
+.right {
+  float: right;
+  width: 50%;
+}
 </style>

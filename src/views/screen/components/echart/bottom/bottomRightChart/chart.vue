@@ -3,8 +3,8 @@
     <Echart
       :options="options"
       id="centreLeft1Chart"
-      height="400px"
-      width="100%"
+      height="320px"
+      width="400px"
     ></Echart>
   </div>
 </template>
@@ -15,77 +15,6 @@ export default {
   data() {
     return {
       options: {},
-      // 定义颜色
-      colorList: {
-        linearYtoG: {
-          type: "linear",
-          x: 0,
-          y: 0,
-          x2: 1,
-          y2: 1,
-          colorStops: [
-            {
-              offset: 0,
-              color: "#f5b44d",
-            },
-            {
-              offset: 1,
-              color: "#28f8de",
-            },
-          ],
-        },
-        linearGtoB: {
-          type: "linear",
-          x: 0,
-          y: 0,
-          x2: 1,
-          y2: 0,
-          colorStops: [
-            {
-              offset: 0,
-              color: "#43dfa2",
-            },
-            {
-              offset: 1,
-              color: "#28f8de",
-            },
-          ],
-        },
-        linearBtoG: {
-          type: "linear",
-          x: 0,
-          y: 0,
-          x2: 1,
-          y2: 0,
-          colorStops: [
-            {
-              offset: 0,
-              color: "#1c98e8",
-            },
-            {
-              offset: 1,
-              color: "#28f8de",
-            },
-          ],
-        },
-        areaBtoG: {
-          type: "linear",
-          x: 0,
-          y: 0,
-          x2: 0,
-          y2: 1,
-          colorStops: [
-            {
-              offset: 0,
-              color: "rgba(35,184,210,.2)",
-            },
-            {
-              offset: 1,
-              color: "rgba(35,184,210,0)",
-            },
-          ],
-        },
-      },
     };
   },
   components: {
@@ -102,116 +31,46 @@ export default {
       handler(newData) {
         this.options = {
           title: {
-            text: "",
-            textStyle: {
-              color: "#D3D6DD",
-              fontSize: 24,
-              fontWeight: "normal",
-            },
-            subtext: newData.year + "/" + newData.weekCategory[6],
-            subtextStyle: {
-              color: "#fff",
-              fontSize: 16,
-            },
-            top: 50,
-            left: 80,
+            text: newData.title,
+            left: newData.titleLeft,
           },
-          legend: {
-            top: 120,
-            left: 80,
-            orient: "vertical",
-            itemGap: 15,
-            itemWidth: 12,
-            itemHeight: 12,
-          },
+          color: [
+            "#37a2da",
+            "#32c5e9",
+            "#9fe6b8",
+            "#ffdb5c",
+            "#ff9f7f",
+            "#fb7293",
+            "#e7bcf3",
+            "#8378ea",
+          ],
           tooltip: {
             trigger: "item",
+            formatter: "{a} <br/>{b} : {c} ({d}%)",
           },
-          radar: {
-            center: ["68%", "27%"],
-            radius: "40%",
-            name: {
+          toolbox: {
+            show: false,
+          },
+          calculable: true,
+          legend: {
+            show: false,
+            orient: "horizontal",
+            icon: "circle",
+            bottom: 0,
+            x: "center",
+            data: newData.xData,
+            textStyle: {
               color: "#fff",
             },
-            splitNumber: 8,
-            axisLine: {
-              lineStyle: {
-                color: this.colorList.linearYtoG,
-                opacity: 0.6,
-              },
-            },
-            splitLine: {
-              lineStyle: {
-                color: this.colorList.linearYtoG,
-                opacity: 0.6,
-              },
-            },
-            splitArea: {
-              areaStyle: {
-                color: "#fff",
-                opacity: 0.1,
-                shadowBlur: 25,
-                shadowColor: "#000",
-                shadowOffsetX: 0,
-                shadowOffsetY: 5,
-              },
-            },
-            indicator: [
-              {
-                name: "服务态度",
-                max: 100000,
-              },
-              {
-                name: "产品质量",
-                max: 100000,
-              },
-              {
-                name: "任务效率",
-                max: 100000,
-              },
-              {
-                name: "售后保障",
-                max: 100000,
-              },
-            ],
-          },
-          grid: {
-            left: 90,
-            right: 80,
-            bottom: 40,
-            top: "60%",
           },
           series: [
             {
-              name: "",
-              type: "radar",
-              symbolSize: 0,
-              data: [
-                {
-                  value: newData.radarData,
-                  name: "数量",
-                  itemStyle: {
-                    normal: {
-                      color: "#f8d351",
-                    },
-                  },
-                  lineStyle: {
-                    normal: {
-                      opacity: 0,
-                    },
-                  },
-                  areaStyle: {
-                    normal: {
-                      color: "#f8d351",
-                      shadowBlur: 25,
-                      shadowColor: "rgba(248,211,81,.3)",
-                      shadowOffsetX: 0,
-                      shadowOffsetY: -10,
-                      opacity: 1,
-                    },
-                  },
-                },
-              ],
+              name: "故障",
+              type: "pie",
+              radius: [10, 110],
+              roseType: "area",
+              center: newData.faultCenter,
+              data: newData.fault,
             },
           ],
         };
@@ -222,3 +81,6 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+</style>
