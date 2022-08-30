@@ -6,7 +6,7 @@
           <span class="fs-xl text mx-2">各省市故障数量排行</span>
         </div>
       </div>
-      <el-carousel :interval="5000" arrow="never" ref="carousel" height="400px">
+      <el-carousel :interval="5000" arrow="never" ref="carousel" height="450px">
         <el-carousel-item>
           <div class="d-flex jc-center body-box">
             <dv-scroll-board class="dv-scr-board" :config="config1" />
@@ -149,8 +149,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$box-height: 410px;
-$box-width: 300px;
+$box-height: 500px;
+$box-width: 400px;
 #centerRight1 {
   padding: 16px;
   padding-top: 20px;
@@ -168,8 +168,8 @@ $box-width: 300px;
     border-radius: 10px;
     overflow: hidden;
     .dv-scr-board {
-      width: 270px;
-      height: 340px;
+      width: 340px;
+      height: 440px;
     }
   }
 }

@@ -29,7 +29,7 @@ export default {
 <style lang="scss" scoped>
 #centerLeft1 {
   $box-width: 300px;
-  $box-height: 410px;
+  $box-height: 500px;
   padding: 16px;
   height: $box-height;
   min-width: $box-width;

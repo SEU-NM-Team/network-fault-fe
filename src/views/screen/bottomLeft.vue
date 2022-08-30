@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$box-height: 520px;
+$box-height: 440px;
 $box-width: 100%;
 #bottomLeft {
   padding: 20px 16px;

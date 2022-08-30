@@ -3,7 +3,7 @@
     <Echart
       :options="options"
       id="bottomLeftChart"
-      height="480px"
+      height="400px"
       width="100%"
     ></Echart>
   </div>
