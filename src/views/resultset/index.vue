@@ -78,14 +78,14 @@ export default {
             label: "数据源",
             field: "sourceCode"
           },
-          {
-            inputType: "anji-select", //form表单类型 input|input-number|anji-select(传递url或者dictCode)|anji-tree(左侧树)|date|datetime|datetimerange
-            anjiSelectOption: {
-              dictCode: "SET_TYPE"
-            },
-            label: "数据集类型",
-            field: "setType"
-          }
+          // {
+          //   inputType: "anji-select", //form表单类型 input|input-number|anji-select(传递url或者dictCode)|anji-tree(左侧树)|date|datetime|datetimerange
+          //   anjiSelectOption: {
+          //     dictCode: "SET_TYPE"
+          //   },
+          //   label: "数据集类型",
+          //   field: "setType"
+          // }
         ],
         // 表头按钮
         tableButtons: [
