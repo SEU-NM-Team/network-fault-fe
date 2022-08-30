@@ -1,5 +1,5 @@
 <template>
-  <div :id="id" :class="className" :style="{ height: height, width: width }" />
+  <div :id="id" :class="className" :style="{ height: height, width: width,textAlign:mapPosition }" />
 </template>
 
 <script>
@@ -14,6 +14,10 @@ export default {
     className: {
       type: String,
       default: "chart",
+    },
+    mapPosition:{
+      type:String,
+      default:"center",
     },
     id: {
       type: String,

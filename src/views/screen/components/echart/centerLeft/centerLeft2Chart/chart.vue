@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height:100%;width:100%">
     <Echart
       id="centreLeft2Chart"
       ref="centreLeft2ChartRef"

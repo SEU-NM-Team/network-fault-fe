@@ -31,14 +31,14 @@
                 <centerLeft1 />
               </dv-border-box-12>
             </div>
-            <fullscreen v-model="fullscreen">
-              <div>
+            <div>
+              <fullscreen v-model="fullscreen">
                 <dv-border-box-12>
                   <button type="button" @click="toggle">Fullscreen</button>
-                  <centerLeft2 />
+                  <centerLeft2 :isFull=true></centerLeft2>
                 </dv-border-box-12>
-              </div>
-            </fullscreen>
+              </fullscreen>
+            </div>
             <div>
               <dv-border-box-13>
                 <centerRight1 />
