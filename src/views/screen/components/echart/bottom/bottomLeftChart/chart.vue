@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- 年度开工率 -->
     <Echart
       :options="options"
       id="bottomLeftChart"
@@ -43,10 +42,10 @@ export default {
             },
           },
           legend: {
-            data: ["已贯通", "计划贯通", "贯通率"],
-            textStyle: {
-              color: "#B4B4B4",
-            },
+            data: ["重障量", "故障量", "故障街道数", "重障街道数"],
+            // textStyle: {
+            //   color: "#B4B4B4",
+            // },
             top: "0%",
           },
           grid: {
@@ -67,10 +66,11 @@ export default {
           },
           yAxis: [
             {
+              name: "故障数",
               splitLine: { show: false },
               axisLine: {
                 lineStyle: {
-                  color: "#B4B4B4",
+                  color: "#62E4A9",
                 },
               },
 
@@ -79,10 +79,12 @@ export default {
               },
             },
             {
+              name: "街道数",
+              position: "right",
               splitLine: { show: false },
               axisLine: {
                 lineStyle: {
-                  color: "#B4B4B4",
+                  color: "#F9E96F",
                 },
               },
               axisLabel: {
@@ -92,52 +94,79 @@ export default {
           ],
           series: [
             {
-              name: "贯通率",
-              type: "line",
-              smooth: true,
-              showAllSymbol: true,
-              symbol: "emptyCircle",
-              symbolSize: 8,
-              yAxisIndex: 1,
-              itemStyle: {
-                normal: {
-                  color: "#F02FC2",
-                },
-              },
-              data: newData.rateData,
-            },
-            {
-              name: "已贯通",
+              name: "重障量",
               type: "bar",
-              barWidth: 10,
+              barWidth: "20%",
+              stack: "fault",
               itemStyle: {
                 normal: {
                   barBorderRadius: 5,
-                  color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                    { offset: 0, color: "#956FD4" },
-                    { offset: 1, color: "#3EACE5" },
-                  ]),
+                  // color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  //   { offset: 0, color: "#956FD4" },
+                  //   { offset: 1, color: "#3EACE5" },
+                  // ]),
+                  color: "#71BEE5",
                 },
               },
-              data: newData.barData,
+              data: newData.againNum,
             },
             {
-              name: "计划贯通",
+              name: "故障量",
               type: "bar",
-              barGap: "-100%",
-              barWidth: 10,
+              barWidth: "20%",
+              stack: "fault",
               itemStyle: {
                 normal: {
                   barBorderRadius: 5,
-                  color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                    { offset: 0, color: "rgba(156,107,211,0.8)" },
-                    { offset: 0.2, color: "rgba(156,107,211,0.5)" },
-                    { offset: 1, color: "rgba(156,107,211,0.2)" },
-                  ]),
+                  // color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  //   { offset: 0, color: "rgba(156,107,211,0.8)" },
+                  //   { offset: 0.2, color: "rgba(156,107,211,0.5)" },
+                  //   { offset: 1, color: "rgba(156,107,211,0.2)" },
+                  // ]),
+                  color: "#62E4A9",
                 },
               },
               z: -12,
-              data: newData.lineData,
+              data: newData.faultNum,
+            },
+            {
+              name: "重障街道数",
+              type: "line",
+              type: "bar",
+              barWidth: "20%",
+              stack: "address",
+              yAxisIndex: 1,
+              barGap: "50%",
+              itemStyle: {
+                normal: {
+                  barBorderRadius: 5,
+                  // color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  //   { offset: 0, color: "#956FD4" },
+                  //   { offset: 1, color: "#3EACE5" },
+                  // ]),
+                  color: "#FCC27C",
+                },
+              },
+              data: newData.againAddress,
+            },
+            {
+              name: "故障街道数",
+              type: "bar",
+              barWidth: "20%",
+              stack: "address",
+              yAxisIndex: 1,
+              barGap: "50%",
+              itemStyle: {
+                normal: {
+                  barBorderRadius: 5,
+                  // color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  //   { offset: 0, color: "#956FD4" },
+                  //   { offset: 1, color: "#3EACE5" },
+                  // ]),
+                  color: "#F9E96F",
+                },
+              },
+              data: newData.faultAddress,
             },
           ],
         };

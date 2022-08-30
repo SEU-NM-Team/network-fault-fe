@@ -33,20 +33,12 @@
             </div>
             <fullscreen v-model="fullscreen">
               <div>
-                  <dv-border-box-12>
-                  <button type="button" @click="toggle" >Fullscreen</button>
+                <dv-border-box-12>
+                  <button type="button" @click="toggle">Fullscreen</button>
                   <centerLeft2 />
-                  </dv-border-box-12>
+                </dv-border-box-12>
               </div>
             </fullscreen>
-            <!-- 中间 -->
-            <div>
-              <center />
-            </div>
-            <!-- 中间 -->
-            <div>
-              <centerRight2 />
-            </div>
             <div>
               <dv-border-box-13>
                 <centerRight1 />
@@ -91,7 +83,7 @@ export default {
       dateWeek: null,
       weekday: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
       decorationColor: ["#568aea", "#000000"],
-      fullscreen: false
+      fullscreen: false,
     };
   },
   components: {
@@ -123,9 +115,9 @@ export default {
         this.loading = false;
       }, 500);
     },
-     toggle () {
-        this.fullscreen = !this.fullscreen
-      },
+    toggle() {
+      this.fullscreen = !this.fullscreen;
+    },
   },
 };
 </script>
