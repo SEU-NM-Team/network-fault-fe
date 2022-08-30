@@ -596,6 +596,7 @@ export default {
     async handleQueryPageList() {
       // 将特殊参数值urlcode处理
       let params = this.urlEncodeObject(this.queryParams, "order,sort");
+      console.log(params)
       const { data, code } = await this.option.buttons.query.api(params);
       // const code = "200";
       // const data = {records: {}, total: 0};
