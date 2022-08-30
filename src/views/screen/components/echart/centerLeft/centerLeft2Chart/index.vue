@@ -1,9 +1,9 @@
 <template>
   <div>
-    <el-carousel :interval="5000" arrow="always" :height="isFull?'1000px':'300px'">
+    <el-carousel :interval="5000" arrow="always" :height="isFullScreen?'790px':'450px'">
       <el-carousel-item v-for="item in 4" :key="item" >
         <Chart
-        style="margin-left:25%"
+        style="margin-left:15%"
           :cdata="cdatas[item - 1].cities"
           :province="provinces[item - 1]"
         ></Chart>
@@ -17,9 +17,9 @@ import Chart from "./chart.vue";
 //import guangxiChart from "./guangxiChart.vue";
 export default {
   props:{    
-    isFull:{
+    isFullScreen:{
       type:Boolean,
-      default:false,
+      //default:true,
     }
   },
   data() {

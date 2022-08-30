@@ -10,8 +10,8 @@
           <dv-decoration-1 class="dv-dec-1" />
         </div>
       </div>
-      <div class="d-flex jc-center">
-        <CenterLeft2Chart />
+      <div>
+        <CenterLeft2Chart :isFullScreen="isFull"></CenterLeft2Chart>
       </div>
     </div>
   </div>
@@ -20,6 +20,11 @@
 <script>
 import CenterLeft2Chart from "./components/echart/centerLeft/centerLeft2Chart";
 export default {
+  props:{
+    isFull:{
+      type:Boolean,
+    }
+  },
   components: {
     CenterLeft2Chart,
   },

@@ -35,7 +35,7 @@
               <fullscreen v-model="fullscreen">
                 <dv-border-box-12>
                   <button type="button" @click="toggle">Fullscreen</button>
-                  <centerLeft2 :isFull=true></centerLeft2>
+                  <centerLeft2 :isFull="fullscreen"></centerLeft2>
                 </dv-border-box-12>
               </fullscreen>
             </div>
@@ -114,6 +114,7 @@ export default {
       }, 500);
     },
     toggle() {
+      console.log(this.fullscreen);
       this.fullscreen = !this.fullscreen;
     },
   },
