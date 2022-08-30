@@ -3,8 +3,8 @@
     <Echart
       :options="options"
       id="centreLeft1Chart"
-      height="220px"
-      width="260px"
+      height="320px"
+      width="400px"
     ></Echart>
   </div>
 </template>
@@ -30,6 +30,10 @@ export default {
     cdata: {
       handler(newData) {
         this.options = {
+          title: {
+            text: newData.title,
+            left: newData.titleLeft,
+          },
           color: [
             "#37a2da",
             "#32c5e9",
@@ -45,10 +49,11 @@ export default {
             formatter: "{a} <br/>{b} : {c} ({d}%)",
           },
           toolbox: {
-            show: true,
+            show: false,
           },
           calculable: true,
           legend: {
+            show: false,
             orient: "horizontal",
             icon: "circle",
             bottom: 0,
@@ -60,12 +65,12 @@ export default {
           },
           series: [
             {
-              name: "通过率统计",
+              name: "故障",
               type: "pie",
-              radius: [10, 50],
+              radius: [10, 65],
               roseType: "area",
-              center: ["50%", "40%"],
-              data: newData.seriesData,
+              center: newData.faultCenter,
+              data: newData.fault,
             },
           ],
         };
