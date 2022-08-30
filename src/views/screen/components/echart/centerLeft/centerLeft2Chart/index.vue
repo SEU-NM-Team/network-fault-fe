@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-carousel :interval="5000" arrow="always">
+    <el-carousel :interval="5000" arrow="always" height="430px">
       <el-carousel-item v-for="item in 4" :key="item">
         <Chart
           :cdata="cdatas[item - 1].cities"
