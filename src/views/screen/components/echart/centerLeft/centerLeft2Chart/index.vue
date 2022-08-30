@@ -1,8 +1,9 @@
 <template>
   <div>
-    <el-carousel :interval="5000" arrow="always">
-      <el-carousel-item v-for="item in 4" :key="item">
+    <el-carousel :interval="5000" arrow="always" :height="isFull?'1000px':'300px'">
+      <el-carousel-item v-for="item in 4" :key="item" >
         <Chart
+        style="margin-left:25%"
           :cdata="cdatas[item - 1].cities"
           :province="provinces[item - 1]"
         ></Chart>
@@ -15,8 +16,15 @@
 import Chart from "./chart.vue";
 //import guangxiChart from "./guangxiChart.vue";
 export default {
+  props:{    
+    isFull:{
+      type:Boolean,
+      default:false,
+    }
+  },
   data() {
     return {
+      mapheight:0,
       provinces: ["广东", "广西", "新疆", "甘肃"],
       cdatas: [
         // {
