@@ -23,7 +23,7 @@ export function setCookie(k, v) {
 export function getCookie(k) {
   let val = Cookies.get(k);
   try{
-    //如果是number boolean jsonstring是不会报错的
+    //如果是number boolean json string是不会报错的
     return JSON.parse(val);
   }catch(e){
     return val;

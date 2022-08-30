@@ -2,7 +2,10 @@
   <div>
     <el-carousel :interval="5000" arrow="always">
       <el-carousel-item v-for="item in 4" :key="item">
-        <Chart :cdata="cdata[item-1].cities"></Chart>
+        <Chart
+          :cdata="cdatas[item - 1].cities"
+          :province="provinces[item - 1]"
+        ></Chart>
       </el-carousel-item>
     </el-carousel>
   </div>
@@ -10,10 +13,12 @@
 
 <script>
 import Chart from "./chart.vue";
+//import guangxiChart from "./guangxiChart.vue";
 export default {
   data() {
     return {
-      cdata: [
+      provinces: ["广东", "广西", "新疆", "甘肃"],
+      cdatas: [
         // {
         // // 名字需要与 “common/map/fujian.js” 地图数据文件里面定义的一一对应，不能是 “福州” 或者 “闽” 之类的缩写
         //   name: "广州市",
@@ -23,7 +28,6 @@ export default {
         //   },
         // },
         {
-          province: "广东",
           cities: [
             { name: "广州市", value: 711409 },
             { name: "深圳市", value: 627510 },
@@ -48,7 +52,6 @@ export default {
           ],
         },
         {
-          province: "广西",
           cities: [
             { name: "南宁市", value: 43069 },
             { name: "梧州市", value: 11678 },
@@ -59,27 +62,24 @@ export default {
           ],
         },
         {
-          provice: "新疆",
           cities: [
-            { name: "乌鲁木齐市", value: 288161 },
-            { name: "伊犁哈萨克自治州", value: 66310 },
-            { name: "巴音郭勒蒙古自治州", value: 65019 },
-            { name: "昌吉回族自治州", value: 55779 },
-            { name: "喀什地区", value: 36663 },
-            { name: "克拉玛依市", value: 22643 },
-            { name: "阿勒泰地区", value: 18882 },
-            { name: "塔城地区", value: 18627 },
-            { name: "阿克苏地区", value: 17996 },
-            { name: "石河子市", value: 17961 },
-            { name: "和田地区", value: 15010 },
-            { name: "博尔塔拉蒙古自治州", value: 13730 },
-            { name: "哈密市", value: 13142 },
-            { name: "吐鲁番市", value: 11265 },
-            { name: "克孜勒苏柯尔克孜自治州", value: 4064 },
+            { name: "乌鲁木齐", value: 288161 },
+            { name: "伊犁", value: 66310 },
+            { name: "昌吉", value: 55779 },
+            { name: "喀什", value: 36663 },
+            { name: "克拉玛依", value: 22643 },
+            { name: "阿勒泰", value: 18882 },
+            { name: "塔城", value: 18627 },
+            { name: "阿克苏", value: 17996 },
+            { name: "石河子", value: 17961 },
+            { name: "和田", value: 15010 },
+            { name: "博州", value: 13730 },
+            { name: "哈密", value: 13142 },
+            { name: "吐鲁番", value: 11265 },
+            { name: "克州", value: 4064 },
           ],
         },
         {
-          province: "甘肃",
           cities: [
             { name: "兰州市", value: 158273 },
             { name: "武威市", value: 60261 },
