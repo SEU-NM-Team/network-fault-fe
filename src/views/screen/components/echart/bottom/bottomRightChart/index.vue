@@ -44,7 +44,7 @@ export default {
   methods: {
     async setCdata() {
       this.cdata1["fault"] = await this.getCData("fault_1");
-      this.cdata2["fault"] = await this.getCData("again_2");
+      this.cdata2["fault"] = await this.getCData("fault_2");
     },
     async getCData(setName) {
       let queryParams = {};
