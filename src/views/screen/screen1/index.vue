@@ -1,181 +1,199 @@
 <template>
-  <div class="verify-line">
-    <v-chart :options="lineOption" autoresize />
+  <div class="bg">
+    <div class="common-layout">
+      <el-container>
+        <el-header class="title">
+          <span class="title-text"> 用户画像 </span>
+        </el-header>
+        <el-divider />
+        <el-container>
+          <el-aside width="8%"></el-aside>
+          <el-container>
+            <el-main class="box">
+              <el-row :gutter="10">
+                <el-col
+                  v-for="(item, index) in userList"
+                  :key="index"
+                  :span="12"
+                >
+                  <dv-border-box-12 class="box-dv">
+                    <el-card class="box-card">
+                      <template #header>
+                        <div class="card-header">
+                          <el-avatar
+                            class="user-number"
+                            :size="50"
+                            :src="circleUrl"
+                          />
+                          <span>{{ item.number }}</span>
+                        </div>
+                      </template>
+                      <div class="text-item">
+                        {{
+                          "电话：" +
+                          (item.phoneNum === "" ? "无" : item.phoneNum)
+                        }}
+                      </div>
+                      <div class="text-item">
+                        {{ "地址：" + item.address }}
+                      </div>
+                      <div class="text-item">
+                        {{ "心情：" + item.description }}
+                      </div>
+                    </el-card>
+                  </dv-border-box-12>
+                </el-col>
+              </el-row>
+            </el-main>
+            <el-footer>
+              <div class="page_bottom">
+                <div class="pagination">
+                  <el-pagination
+                    v-show="total > 0"
+                    background
+                    :current-page.sync="queryParams.pageNumber"
+                    :page-size="queryParams.pageSize"
+                    layout="total, prev, pager, next, jumper"
+                    :total="total"
+                    @current-change="handleCurrentChange"
+                  />
+                </div>
+              </div>
+            </el-footer>
+          </el-container>
+        </el-container>
+      </el-container>
+    </div>
   </div>
 </template>
 <script>
-import "echarts/lib/chart/line";
-import "echarts/lib/component/axis";
-import "echarts/lib/component/tooltip";
 export default {
-  props: {
-    info: {
-      //这里是传进来的折线图数据
-      type: Array,
-      default: () => {
-        return [];
-      },
-    },
-  },
   data() {
-    const splitLineStyle = {
-      show: true,
-      lineStyle: {
-        color: ["rgb(241, 241, 241)"],
-        width: 1,
-        type: "solid",
-      },
-    };
-    // 坐标轴线样式
-    const axisLine = {
-      show: true,
-      lineStyle: {
-        color: "rgb(241, 241, 241, .5)",
-      },
-    };
-    // 坐标文字样式
-    const axisLabel = {
-      interval: 0,
-      textStyle: {
-        color: "#50576A", // 坐标值得具体的颜色
-      },
-    };
     return {
-      lineOption: {
-        // 调整边距(上下左右)
-        grid: {
-          left: "1%",
-          right: "1%",
-          bottom: "2%",
-          containLabel: true,
-        },
-        xAxis: {
-          type: "category",
-          boundaryGap: false, // 坐标轴两边留白
-          data: [],
-          axisLine: axisLine,
-          axisLabel: {
-            // 坐标轴刻度标签的相关设置
-            interval: 0, // 如果设置为 1，表示『隔一个标签显示一个标签』
-            textStyle: {
-              color: "#50576A", // 坐标值得具体的颜色
-            },
-            // 坐标轴文字的显示格式
-            formatter: function (params) {
-              return params + "月";
-            },
-          },
-        },
-        yAxis: {
-          type: "value",
-          boundaryGap: [0, "30%"],
-          axisLine: axisLine,
-          axisLabel: axisLabel,
-          splitLine: splitLineStyle,
-          // 不显示坐标轴刻度
-          axisTick: {
-            show: false,
-          },
-        },
-        // 高亮提示设置
-        tooltip: {
-          trigger: "axis",
-          axisPointer: {
-            lineStyle: {
-              color: {
-                type: "linear",
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [
-                  {
-                    offset: 0,
-                    color: "#3AD4A7",
-                  },
-                  {
-                    offset: 1,
-                    color: "#3AD4A7",
-                  },
-                ],
-                global: false,
-              },
-            },
-          },
-        },
-        series: [
+      circleUrl:
+        "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+      userList: [],
+      total: 1,
+      queryParams: {
+        pageNumber: 1,
+        pageSize: 4,
+      },
+    };
+  },
+  created() {
+    this.handleQueryPageList1();
+  },
+  methods: {
+    async handleQueryPageList1() {
+      let params = this.urlEncodeObject(this.queryParams);
+      console.log(params);
+      // const { data, code } = await
+      const code = "200";
+      const data = {
+        userList: [
           {
-            type: "line",
-            smooth: true,
-            showSymbol: true, // 显示转折点变大
-            symbol: "circle", // 设定为实心点
-            symbolSize: 1, // 设定实心点的大小
-            lineStyle: {
-              // 数据线的样式
-              color: "#4669F5",
-              width: 3,
-            },
-            itemStyle: {
-              normal: {
-                // 配置转折点的样式
-                color: "#3AD4A7",
-              },
-            },
-            areaStyle: {
-              color: {
-                type: "linear",
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [
-                  {
-                    offset: 0,
-                    color: "rgba(70, 105, 245, .8)", // 0% 处的颜色
-                  },
-                  {
-                    offset: 0.5,
-                    color: "rgba(255, 255, 255, 0.5)", // 100% 处的颜色
-                  },
-                  {
-                    offset: 1,
-                    color: "rgba(255, 255, 255, 0.5)", // 100% 处的颜色
-                  },
-                ],
-              },
-            },
-            data: [],
+            number: "1234",
+            address: "广东省广州市",
+            phoneNum: "123456789",
+            description: "情绪激动",
+          },
+          {
+            number: "1234",
+            address: "广东省广州市",
+            phoneNum: "",
+            description: "情绪激动",
+          },
+          {
+            number: "1234",
+            address: "广东省广州市",
+            phoneNum: "123456789",
+            description: "情绪激动",
+          },
+          {
+            number: "1234",
+            address: "广东省广州市",
+            phoneNum: "123456789",
+            description: "情绪激动",
           },
         ],
-      },
-    };
-  },
-  watch: {
-    //深度监听传过来的折线图数据
-    info: {
-      immediate: true,
-      deep: true,
-      handler(val) {
-        if (val && val.length) {
-          let xAxis = [];
-          let yAxis = [];
-          val.forEach((item, index) => {
-            xAxis.push(item.month);
-            yAxis.push(item.total);
-          });
-          this.lineOption.series[0].data = yAxis;
-          this.lineOption.xAxis.data = xAxis;
-        } else {
-          const lineLen = 12;
-          let xAxis = [];
-          for (let i = 1; i <= lineLen; i++) {
-            xAxis.push(i);
-          }
-          this.lineOption.series[0].data = [];
-          this.lineOption.xAxis.data = xAxis;
-        }
-      },
+        total: 5,
+      };
+      if (code != "200") return;
+      this.total = data.total;
+      this.userList = data.userList;
+    },
+    handleCurrentChange(pageNumber) {
+      this.queryParams.pageNumber = pageNumber;
+      this.handleQueryPageList();
+    },
+    async handleQueryPageList() {
+      let params = this.urlEncodeObject(this.queryParams);
+      console.log(params);
+      // const { data, code } = await
+      if (code != "200") return;
+      this.total = data.total;
+      this.userList = data.userList;
     },
   },
 };
 </script>
+<style scoped lang="scss">
+.bg {
+  width: 100%;
+  height: 100%;
+  padding: 16px 16px 0 16px;
+  background-image: url("~@/assets/images/pageBg.png");
+  background-size: cover;
+  background-position: center center;
+}
+.title {
+  height: 70px;
+  position: relative;
+  .title-text {
+    font-size: 24px;
+    color: #ffffff;
+    text-align: center;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%);
+  }
+}
+.box {
+  width: 100%;
+  .box-dv {
+    width: 80%;
+    height: 270px;
+    margin: 20px;
+    .box-card {
+      background: transparent !important;
+      color: #ffffff;
+      border-color: transparent !important;
+      font-size: 18px !important;
+      width: 90%;
+      height: 250px;
+      position: absolute;
+      left: 5%;
+      .text-item {
+        height: 30px;
+      }
+    }
+  }
+}
+.page_bottom {
+  width: 50%;
+  position: absolute;
+  margin-top: 20px;
+  .pagination {
+    margin-left: 55%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+.el-pager li.active,
+.el-pager li:hover {
+  background: transparent !important;
+  color: white !important;
+}
+</style>

@@ -9,7 +9,6 @@ import Chart from "./chart.vue";
 export default {
   data() {
     return {
-      drawTiming: null,
       cdata: {
         year: null,
         weekCategory: [],
@@ -25,7 +24,7 @@ export default {
     this.setData();
   },
   methods: {
-    setData() {
+    async setData() {
       let dateBase = new Date();
       this.cdata.year = dateBase.getFullYear();
       // 周数据
@@ -36,6 +35,21 @@ export default {
           [date.getMonth() + 1, date.getDate() - i].join("/")
         );
       }
+      this.cdata1["radarData"] = await this.getCData("acs_way_sum");
+    },
+    async getCData(setName) {
+      let queryParams = {};
+      let a = [];
+      queryParams["setName"] = setName;
+      let params = this.urlEncodeObject(queryParams);
+      const { data, code } = await reportDataSetList(params);
+      if (code != "200") return;
+      let temp = JSON.parse(data.records[0].caseResult);
+      temp.map((k) => {
+        k = k.sum;
+        a.push(k);
+      });
+      return a;
     },
   },
 };
