@@ -29,19 +29,19 @@ export default {
         data: [
           {
             name: "高危用户",
-            value: 0,
+            value: 20274,
           },
           {
             name: "低危用户",
-            value: 0,
+            value: 59487,
           },
           {
             name: "中危用户",
-            value: 0,
+            value: 327490,
           },
           {
             name: "普通用户",
-            value: 0,
+            value: 2976060,
           }
         ],
       },
