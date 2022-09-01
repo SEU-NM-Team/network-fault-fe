@@ -51,9 +51,9 @@ export default {
       const { data, code } = await reportDataSetList(params);
       if (code != "200") return;
       let temp = JSON.parse(data.records[0].caseResult);
-      if (setName == "guangxi") {
+      if (setName == "stream_guangxi") {
         for (var i = 0; i < 5; i++) {
-          a.push("");
+          a.push(null);
         }
         for (var i = 0; i < temp.length; i++) {
           a.push(temp[i].count);
@@ -62,7 +62,6 @@ export default {
         for (var i = 0; i < temp.length; i++) {
           a.push(temp[i].count);
         }
-      console.log(a);
       return a;
     },
   },
