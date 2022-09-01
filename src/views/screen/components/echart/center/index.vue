@@ -12,20 +12,20 @@ export default {
     return {
       cdata: {
         category: [
-          "一月",
-          "二月",
-          "三月",
-          "四月",
-          "五月",
-          "六月",
-          "七月",
-          "八月",
+          "2021-01",
+          "2021-02",
+          "2021-03",
+          "2021-04",
+          "2021-05",
+          "2021-06",
+          "2021-07",
+          "2021-08",
         ],
-        guangdong: [2000, 4400, 3400, 2700, 3700, 5700, 4500, 6000],
-        guangxi: [3700, 5700, 4500, 6000, 6300, 4500, 4800, 2900],
-        xinjiang: [6300, 4500, 4800, 2900, 5400, 3400, 3200, 5000],
-        gansu: [5400, 3400, 3200, 5000, 2400, 5300, 6500, 4500],
-        yunnan: [2400, 5300, 6500, 4500, 2000, 4400, 3400, 2700],
+        guangdong: [],
+        guangxi: [],
+        xinjiang: [],
+        gansu: [],
+        yunnan: [],
       },
     };
   },
@@ -33,10 +33,16 @@ export default {
     Chart,
   },
   mounted() {
-    // this.setCdata()
+    this.setCdata();
   },
   methods: {
-    async setCdata() {},
+    async setCdata() {
+      this.cdata["guangdong"] = await this.getCData("stream_guangdong");
+      this.cdata["guangxi"] = await this.getCData("stream_guangxi");
+      this.cdata["xinjiang"] = await this.getCData("stream_xinjiang");
+      this.cdata["gansu"] = await this.getCData("stream_gansu");
+      this.cdata["yunnan"] = await this.getCData("stream_yunnan");
+    },
     async getCData(setName) {
       let queryParams = {};
       let a = [];
@@ -45,10 +51,17 @@ export default {
       const { data, code } = await reportDataSetList(params);
       if (code != "200") return;
       let temp = JSON.parse(data.records[0].caseResult);
-      temp.map((k) => {
-        k = k.sum;
-        a.push(k);
-      });
+      if (setName == "stream_guangxi") {
+        for (var i = 0; i < 5; i++) {
+          a.push(null);
+        }
+        for (var i = 0; i < temp.length; i++) {
+          a.push(temp[i].count);
+        }
+      } else
+        for (var i = 0; i < temp.length; i++) {
+          a.push(temp[i].count);
+        }
       return a;
     },
   },

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Echart :options="options" id="center" height="800px" width="100%"></Echart>
+    <Echart :options="options" id="center" height="810px" width="100%"></Echart>
   </div>
 </template>
 
@@ -25,6 +25,9 @@ export default {
     cdata: {
       handler(newData) {
         this.options = {
+          textStyle: {
+            fontSize: 17,
+          },
           tooltip: {
             trigger: "axis",
             backgroundColor: "rgba(255,255,255,0.1)",
@@ -58,46 +61,59 @@ export default {
           },
           yAxis: [
             {
-              name: "故障量",
+              name: "其他",
               splitLine: { show: false },
               axisLabel: {
                 formatter: "{value} ",
               },
             },
+            // {
+            //   name: "广东",
+            //   splitLine: { show: false },
+            //   axisLine: {
+            //     lineStyle: {
+            //       color: "#5470c6",
+            //     },
+            //   },
+            //   axisLabel: {
+            //     formatter: "{value} ",
+            //   },
+            // },
           ],
           series: [
             {
               name: "广东省",
               type: "line",
-              stack: "fault",
+              // stack: "fault",
+              // yAxisIndex: 1,
               smooth: false,
               data: newData.guangdong,
             },
             {
               name: "广西省",
               type: "line",
-              stack: "fault",
+              // stack: "fault",
               smooth: false,
               data: newData.guangxi,
             },
             {
               name: "新疆省",
               type: "line",
-              stack: "fault",
+              // stack: "fault",
               smooth: false,
               data: newData.xinjiang,
             },
             {
               name: "甘肃省",
               type: "line",
-              stack: "fault",
+              // stack: "fault",
               smooth: false,
               data: newData.gansu,
             },
             {
               name: "云南省",
               type: "line",
-              stack: "fault",
+              // stack: "fault",
               smooth: false,
               data: newData.yunnan,
             },
