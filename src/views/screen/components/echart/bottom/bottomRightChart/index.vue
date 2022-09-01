@@ -30,7 +30,14 @@ export default {
       },
       cdata2: {
         xData: ["a1", "a2", "a3", "a4", "a5", "a6"],
-        fault: [],
+        fault: [
+          { value: 10, name: "data1" },
+          { value: 5, name: "data2" },
+          { value: 15, name: "data3" },
+          { value: 25, name: "data4" },
+          { value: 20, name: "data5" },
+          { value: 35, name: "data6" },
+        ],
         title: "二类故障",
         titleLeft: "45%",
         faultCenter: ["55%", "60%"],

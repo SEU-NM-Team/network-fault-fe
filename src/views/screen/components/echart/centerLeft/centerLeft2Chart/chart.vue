@@ -4,8 +4,8 @@
       id="centreLeft2Chart"
       ref="centreLeft2ChartRef"
       :options="options"
-      height="550px"
-      width="480px"
+      :height="nheight+'px'"
+      :width="nwidth+'px'"
     ></Echart>
   </div>
 </template>
@@ -22,6 +22,8 @@ export default {
     Echart,
   },
   props: {
+    nheight:Number,
+    nwidth:Number,
     province: String,
     cdata: {
       type: Array,

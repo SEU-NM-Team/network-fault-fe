@@ -443,7 +443,7 @@ export default {
         }
       });
     },
-    async loginApi() {
+    async loginApi() { 
       const obj = {
         loginName: this.loginForm.loginName,
         password: transPsw(this.loginForm.password),

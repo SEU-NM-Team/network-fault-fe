@@ -1,31 +1,34 @@
 <template>
-  <div>
-    <el-carousel :interval="5000" arrow="always" :height="isFullScreen?'790px':'450px'">
-      <el-carousel-item v-for="item in 4" :key="item" >
-        <Chart
-        style="margin-left:15%"
-          :cdata="cdatas[item - 1].cities"
-          :province="provinces[item - 1]"
-        ></Chart>
-      </el-carousel-item>
-    </el-carousel>
-  </div>
+  <el-carousel
+    :interval="5000"
+    arrow="always"
+    :height="lightHeight+'px'"
+  >
+    <el-carousel-item v-for="item in 5" :key="item">
+      <Chart
+        :cdata="cdatas[item - 1].cities"
+        :province="provinces[item - 1]"
+        :nheight="newHeight"
+        :nwidth="newWidth"
+        style="margin-left: 25%"
+      ></Chart>
+    </el-carousel-item>
+  </el-carousel>
 </template>
 
 <script>
 import Chart from "./chart.vue";
 //import guangxiChart from "./guangxiChart.vue";
 export default {
-  props:{    
-    isFullScreen:{
-      type:Boolean,
+  props: {
+    isFullScreen: {
+      type: Boolean,
       //default:true,
-    }
+    },
   },
   data() {
     return {
-      mapheight:0,
-      provinces: ["广东", "广西", "新疆", "甘肃"],
+      provinces: ["广东", "广西", "新疆", "甘肃","云南"],
       cdatas: [
         // {
         // // 名字需要与 “common/map/fujian.js” 地图数据文件里面定义的一一对应，不能是 “福州” 或者 “闽” 之类的缩写
@@ -105,11 +108,42 @@ export default {
             { name: "甘南藏族自治州", value: 6755 },
           ],
         },
+        {
+          cities: [
+            { name: "昆明市", value: 289242 },
+            { name: "曲靖市", value: 57962 },
+            { name: "红河市", value: 55530 },
+            { name: "大理市", value: 36880},
+            { name: "昭通市", value: 36276},
+            { name: "玉溪市", value: 32486},
+            { name: "楚雄市", value: 27049},
+            { name: "临沧市", value: 22134},
+            { name: "文山市", value: 20514},
+            { name: "版纳市", value: 20379},
+            { name: "普洱市", value: 20313},
+            { name: "保山市", value: 19337},
+            { name: "丽江市", value: 17982},
+            { name: "德宏市", value: 17693},
+            { name: "迪庆市", value: 5486},
+            { name: "怒江市", value: 4045},
+          ],
+        },
       ],
     };
   },
   components: {
     Chart,
+  },
+  computed:{
+    lightHeight(){
+      return this.isFullScreen?790 :450;
+    },
+    newHeight(){
+      return this.isFullScreen? 1080:450;
+    },
+    newWidth(){
+      return this.isFullScreen? 960:390;
+    }
   },
   mounted() {},
   methods: {},

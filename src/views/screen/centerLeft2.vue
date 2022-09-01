@@ -11,7 +11,7 @@
         </div>
       </div>
       <div>
-        <CenterLeft2Chart :isFullScreen="isFull"></CenterLeft2Chart>
+        <CenterLeft2Chart :is-full-screen="isFull"></CenterLeft2Chart>
       </div>
     </div>
   </div>
@@ -42,6 +42,7 @@ export default {
   .bg-color-black {
     height: $box-height - 30px;
     border-radius: 10px;
+    justify-content: center;
   }
   .text {
     color: #c3cbde;

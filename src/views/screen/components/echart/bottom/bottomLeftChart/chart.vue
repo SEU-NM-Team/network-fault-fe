@@ -50,7 +50,7 @@ export default {
           },
           grid: {
             x: "8%",
-            width: "88%",
+            width: "80%",
             y: "4%",
           },
           xAxis: {

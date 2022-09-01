@@ -1,5 +1,5 @@
 <template>
-  <div :id="id" :class="className" :style="{ height: height, width: width,textAlign:mapPosition }" />
+  <div :id="id" v-if="renderComponent" :class="className" :style="{ height: height, width: width }" />
 </template>
 
 <script>
@@ -8,6 +8,7 @@ import "echarts/map/js/province/guangdong.js";
 import "echarts/map/js/province/guangxi.js";
 import "echarts/map/js/province/xinjiang.js";
 import "echarts/map/js/province/gansu.js";
+import "echarts/map/js/province/yunnan.js"
 export default {
   name: "echart",
   props: {
@@ -15,9 +16,9 @@ export default {
       type: String,
       default: "chart",
     },
-    mapPosition:{
-      type:String,
-      default:"center",
+    mapPosition: {
+      type: String,
+      default: "center",
     },
     id: {
       type: String,
@@ -38,10 +39,20 @@ export default {
   },
   data() {
     return {
+      renderComponent:true,
       chart: null,
     };
   },
   watch: {
+    height: {
+      handler(newdata) {
+        this.renderComponent = false;
+        this.$nextTick(() => {
+          this.renderComponent = true;
+        });
+        this.renderComponent=true;
+      },
+    },
     options: {
       handler(options) {
         // 设置true清空echart缓存

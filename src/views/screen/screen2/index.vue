@@ -35,7 +35,7 @@
               <fullscreen v-model="fullscreen">
                 <dv-border-box-12>
                   <button type="button" @click="toggle">Fullscreen</button>
-                  <centerLeft2 :isFull="fullscreen"></centerLeft2>
+                  <centerLeft2 :is-full="fullscreen"></centerLeft2>
                 </dv-border-box-12>
               </fullscreen>
             </div>
@@ -51,9 +51,12 @@
             <dv-border-box-13>
               <bottomLeft />
             </dv-border-box-13>
-            <dv-border-box-12>
+            <dv-border-box-13>
+              <bottomCenter />
+            </dv-border-box-13>
+            <dv-border-box-13>
               <bottomRight />
-            </dv-border-box-12>
+            </dv-border-box-13>
           </div>
         </div>
       </div>
@@ -70,7 +73,7 @@ import centerRight1 from "../centerRight1";
 import center from "../center";
 import bottomLeft from "../bottomLeft";
 import bottomRight from "../bottomRight";
-
+import bottomCenter from "../bottomCenter"
 export default {
   mixins: [drawMixin],
   data() {
@@ -91,6 +94,7 @@ export default {
     centerRight1,
     center,
     bottomLeft,
+    bottomCenter,
     bottomRight,
   },
   mounted() {
