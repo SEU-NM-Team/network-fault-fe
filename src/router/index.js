@@ -219,7 +219,16 @@ export const constantRouterMap = [
       title: '数据大屏',
       requireAuth: true
     }
-  }
+  },
+  {
+    path: '/screen/3',
+    component: () => import('@/views/screen/screen3'),
+    hidden: true,
+    meta: {
+      title: '数据大屏',
+      requireAuth: true
+    }
+  },
 ]
 
 export default new Router({
