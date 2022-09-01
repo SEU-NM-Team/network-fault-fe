@@ -31,7 +31,7 @@
               <el-main class="box">
                 <el-row :gutter="8" class="box-row">
                   <el-col
-                    v-for="(item, index) in userList"
+                    v-for="(item, index) in userList.slice((queryParams.pageNumber-1)*4,queryParams.pageNumber*4+4)"
                     :key="index"
                     :span="12"
                   >
