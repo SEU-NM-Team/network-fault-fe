@@ -26,7 +26,7 @@
 
         <div class="center-box">
           <div>
-            <dv-border-box-12>
+            <dv-border-box-12 class="dv-bor">
               <center />
             </dv-border-box-12>
           </div>
@@ -67,4 +67,13 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/styles/screenStyle.scss";
 @import "@/assets/styles/screen.scss";
+.center-box {
+  position: absolute;
+  left: 8%;
+  top: 6%;
+  width: 95%;
+  .dv-bor {
+    width: 90%;
+  }
+}
 </style>
