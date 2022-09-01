@@ -6,6 +6,7 @@
 
 <script>
 import Chart from "./chart.vue";
+import { reportDataSetList } from "@/api/reportDataSet";
 export default {
   data() {
     return {
@@ -13,7 +14,6 @@ export default {
         year: null,
         weekCategory: [],
         radarData: [],
-        maxData: 12000,
       },
     };
   },
@@ -35,7 +35,7 @@ export default {
           [date.getMonth() + 1, date.getDate() - i].join("/")
         );
       }
-      this.cdata1["radarData"] = await this.getCData("acs_way_sum");
+      this.cdata["radarData"] = await this.getCData("acs_way");
     },
     async getCData(setName) {
       let queryParams = {};

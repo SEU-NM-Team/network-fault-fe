@@ -11,34 +11,19 @@
 
 <script>
 import Chart from "./chart.vue";
+import { reportDataSetList } from "@/api/reportDataSet";
 export default {
   data() {
     return {
       cdata1: {
-        xData: ["data1", "data2", "data3", "data4", "data5", "data6"],
-        fault: [
-          { value: 10, name: "data1" },
-          { value: 5, name: "data2" },
-          { value: 15, name: "data3" },
-          { value: 25, name: "data4" },
-          { value: 20, name: "data5" },
-          { value: 35, name: "data6" },
-        ],
-        title: "一类故障",
+        fault: [],
+        title: "故障类型",
         titleLeft: "40%",
         faultCenter: ["50%", "60%"],
       },
       cdata2: {
-        xData: ["a1", "a2", "a3", "a4", "a5", "a6"],
-        fault: [
-          { value: 10, name: "data1" },
-          { value: 5, name: "data2" },
-          { value: 15, name: "data3" },
-          { value: 25, name: "data4" },
-          { value: 20, name: "data5" },
-          { value: 35, name: "data6" },
-        ],
-        title: "二类故障",
+        fault: [],
+        title: "故障信息",
         titleLeft: "45%",
         faultCenter: ["55%", "60%"],
       },
@@ -47,24 +32,44 @@ export default {
   components: {
     Chart,
   },
-  mounted() {},
+  mounted() {
+    this.setCdata();
+  },
   methods: {
     async setCdata() {
-      this.cdata1["fault"] = await this.getCData("fault_1");
-      this.cdata2["fault"] = await this.getCData("fault_2");
+      this.cdata1["fault"] = await this.getCData1();
+      this.cdata2["fault"] = await this.getCData2();
     },
-    async getCData(setName) {
+    async getCData1() {
       let queryParams = {};
       let a = [];
-      queryParams["setName"] = setName;
+      queryParams["setName"] = "fault_type";
       let params = this.urlEncodeObject(queryParams);
       const { data, code } = await reportDataSetList(params);
       if (code != "200") return;
       let temp = JSON.parse(data.records[0].caseResult);
-      temp.map((k) => {
-        k = k.sum;
-        a.push(k);
-      });
+      for (var i = 0; i < temp.length; i++) {
+        var obj = new Object();
+        obj.name = temp[i].fault_type;
+        obj.value = temp[i].sum;
+        a.push(obj);
+      }
+      return a;
+    },
+    async getCData2() {
+      let queryParams = {};
+      let a = [];
+      queryParams["setName"] = "info_fault";
+      let params = this.urlEncodeObject(queryParams);
+      const { data, code } = await reportDataSetList(params);
+      if (code != "200") return;
+      let temp = JSON.parse(data.records[0].caseResult);
+      for (var i = 0; i < temp.length; i++) {
+        var obj = new Object();
+        obj.name = temp[i].fault;
+        obj.value = temp[i].sum;
+        a.push(obj);
+      }
       return a;
     },
   },
