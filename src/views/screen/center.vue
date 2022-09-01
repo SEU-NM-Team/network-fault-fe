@@ -30,7 +30,7 @@ $box-height: 900px;
 $box-width: 90%;
 #center {
   margin: 50px;
-  padding: 40px 40px;
+  padding: 40px 90px;
   height: $box-height;
   width: $box-width;
   border-radius: 5px;
