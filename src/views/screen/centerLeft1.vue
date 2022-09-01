@@ -3,7 +3,7 @@
     <div class="bg-color-black">
       <div class="d-flex pt-2 pl-2">
         <div class="d-flex">
-          <span class="fs-xl text mx-2">业务类型统计图</span>
+          <span class="fs-xl text mx-2">接入方式统计图</span>
         </div>
       </div>
       <div>

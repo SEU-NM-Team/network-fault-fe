@@ -6,12 +6,7 @@
           <span class="fs-xl text mx-2">各省市故障数量排行</span>
         </div>
       </div>
-      <el-carousel
-        :interval="5000"
-        arrow="always"
-        ref="carousel"
-        height="450px"
-      >
+      <el-carousel :interval="5000" arrow="never" ref="carousel" height="450px">
         <el-carousel-item v-for="item in 4" :key="item">
           <dv-scroll-board class="dv-scr-board" :config="config[item - 1]" />
         </el-carousel-item>
@@ -21,34 +16,14 @@
 </template>
 
 <script>
+import { reportDataSetList } from "@/api/reportDataSet";
 export default {
   data() {
     return {
       config: [
         {
           header: ["省", "市", "故障量"],
-          data: [
-            ["广东省", "广州市", 711409],
-            ["广东省", "深圳市", 627510],
-            ["广东省", "东莞市", 198241],
-            ["广东省", "佛山市", 90502],
-            ["广东省", "珠海市", 52840],
-            ["广东省", "江门市", 52129],
-            ["广东省", "惠州市", 43824],
-            ["广东省", "汕头市", 39276],
-            ["广东省", "肇庆市", 36373],
-            ["广东省", "湛江市", 34669],
-            ["广东省", "茂名市", 26375],
-            ["广东省", "韶关市", 22249],
-            ["广东省", "梅州市", 19801],
-            ["广东省", "揭阳市", 18916],
-            ["广东省", "清远市", 16743],
-            ["广东省", "云浮市", 14596],
-            ["广东省", "潮州市", 14086],
-            ["广东省", "阳江市", 13082],
-            ["广东省", "汕尾市", 8718],
-            ["广东省", "河源市", 7826],
-          ],
+          data: [],
           rowNum: 7, //表格行数
           headerHeight: 35,
           headerBGC: "#0f1325", //表头
@@ -60,14 +35,7 @@ export default {
         },
         {
           header: ["省", "市", "故障量"],
-          data: [
-            ["广西省", "南宁市", 43069],
-            ["广西省", "梧州市", 11678],
-            ["广西省", "桂林市", 11436],
-            ["广西省", "贵港市", 11237],
-            ["广西省", "百色市", 10372],
-            ["广西省", "来宾市", 7253],
-          ],
+          data: [],
           rowNum: 7, //表格行数
           headerHeight: 35,
           headerBGC: "#0f1325", //表头
@@ -79,23 +47,7 @@ export default {
         },
         {
           header: ["省", "市", "故障量"],
-          data: [
-            ["新疆省", "乌鲁木齐市", 288161],
-            ["新疆省", "伊犁哈萨克自治州", 66310],
-            ["新疆省", "巴音郭勒蒙古自治州", 65019],
-            ["新疆省", "昌吉回族自治州", 55779],
-            ["新疆省", "喀什地区", 36663],
-            ["新疆省", "克拉玛依市", 22643],
-            ["新疆省", "阿勒泰地区", 18882],
-            ["新疆省", "塔城地区", 18627],
-            ["新疆省", "阿克苏地区", 17996],
-            ["新疆省", "石河子市", 17961],
-            ["新疆省", "和田地区", 15010],
-            ["新疆省", "博尔塔拉蒙古自治州", 13730],
-            ["新疆省", "哈密市", 13142],
-            ["新疆省", "吐鲁番市", 11265],
-            ["新疆省", "克孜勒苏柯尔克孜自治州", 4064],
-          ],
+          data: [],
           rowNum: 7, //表格行数
           headerHeight: 35,
           headerBGC: "#0f1325", //表头
@@ -107,22 +59,7 @@ export default {
         },
         {
           header: ["省", "市", "故障量"],
-          data: [
-            ["甘肃省", "兰州市", 158273],
-            ["甘肃省", "武威市", 60261],
-            ["甘肃省", "天水市", 56134],
-            ["甘肃省", "定西市", 49840],
-            ["甘肃省", "陇南市", 49337],
-            ["甘肃省", "平凉市", 43573],
-            ["甘肃省", "庆阳市", 40640],
-            ["甘肃省", "张掖市", 35418],
-            ["甘肃省", "白银市", 33258],
-            ["甘肃省", "酒泉市", 28445],
-            ["甘肃省", "临夏回族自治州", 22029],
-            ["甘肃省", "金昌市", 15276],
-            ["甘肃省", "嘉峪关市", 8920],
-            ["甘肃省", "甘南藏族自治州", 6755],
-          ],
+          data: [],
           rowNum: 7, //表格行数
           headerHeight: 35,
           headerBGC: "#0f1325", //表头
@@ -136,10 +73,15 @@ export default {
     };
   },
   mounted() {
-    // this.setCdata();
+    this.setCdata();
   },
   methods: {
-    async setCdata() {},
+    async setCdata() {
+      this.config[0].data = await this.getCData("sum_guangdong");
+      this.config[1].data = await this.getCData("sum_guangxi");
+      this.config[2].data = await this.getCData("sum_xinjiang");
+      this.config[3].data = await this.getCData("sum_gansu");
+    },
     async getCData(setName) {
       let queryParams = {};
       let a = [];
@@ -148,10 +90,13 @@ export default {
       const { data, code } = await reportDataSetList(params);
       if (code != "200") return;
       let temp = JSON.parse(data.records[0].caseResult);
-      temp.map((k) => {
-        k = k.sum;
-        a.push(k);
-      });
+      for (var i = 0; i < temp.length; i++) {
+        var j = [];
+        j[0] = temp[i].province;
+        j[1] = temp[i].city;
+        j[2] = temp[i].fault_sum;
+        a.push(j);
+      }
       return a;
     },
   },

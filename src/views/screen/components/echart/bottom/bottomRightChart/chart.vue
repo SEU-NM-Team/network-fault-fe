@@ -67,8 +67,7 @@ export default {
             {
               name: "故障",
               type: "pie",
-              radius: [10, 110],
-              roseType: "area",
+              radius: [70, 110],
               center: newData.faultCenter,
               data: newData.fault,
             },

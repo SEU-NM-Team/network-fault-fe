@@ -158,20 +158,20 @@ export default {
             },
             indicator: [
               {
-                name: "服务态度",
-                max: 100000,
+                name: "未标注",
+                max: 1100,
               },
               {
-                name: "产品质量",
-                max: 100000,
+                name: "FTTH光纤接入方式",
+                max: 1100,
               },
               {
-                name: "任务效率",
-                max: 100000,
+                name: "铜缆接入方式",
+                max: 1100,
               },
               {
-                name: "售后保障",
-                max: 100000,
+                name: "FTTB+LAN",
+                max: 1100,
               },
             ],
           },
