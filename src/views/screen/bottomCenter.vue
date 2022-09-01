@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { reportDataSetList } from "@/api/reportDataSet";
 export default {
   data() {
     return {
@@ -28,33 +29,63 @@ export default {
         data: [
           {
             name: "高危用户",
-            value: 20274,
+            value: 0,
           },
           {
             name: "低危用户",
-            value: 59487,
+            value: 0,
           },
           {
             name: "中危用户",
-            value: 327490,
+            value: 0,
           },
           {
             name: "普通用户",
-            value: 2976060,
+            value: 0,
           }
         ],
       },
-    //   riskTable: {
-    //     header: ["风险等级", "数量"],
-    //     data: [
-    //       ["高危用户", 20274],
-    //       ["中危用户", 59487],
-    //       ["低危用户", 327490],
-    //       ["普通用户", 2976060],
-    //     ],
-    //   },
-    };
+      //  riskTable: {
+      //    header: ["风险等级", "数量"],
+      //    data: [
+      //      ["高危用户", 20274],
+      //      ["中危用户", 59487],
+      //      ["低危用户", 327490],
+      //      ["普通用户", 2976060],
+      //    ],
+      //  },
+    }
   },
+  mounted(){
+    this.setCData();
+  },
+  methods:{
+    async setCData() {
+      var tmp = await this.getCData('risk_num');
+      for(var i=0;i<4;i++){
+        //console.log(tmp[i].value);
+        this.config.data[i].value=tmp[i].value;
+        //console.log(this.config.data[i].value);
+      }
+    },
+    async getCData(setName) {
+      let queryParams = {}
+      queryParams['setName'] = setName
+      let params = this.urlEncodeObject(queryParams)
+      const {data, code} = await reportDataSetList(params)
+      if (code != "200") return;
+      let temp = JSON.parse(data.records[0].caseResult)
+      let a=[];
+      temp.map(k => {
+        k = {
+          value:k.count,
+          name:k.type
+        }
+        a.push(k)
+      })
+      return a;
+    }
+  }
 };
 </script>
 

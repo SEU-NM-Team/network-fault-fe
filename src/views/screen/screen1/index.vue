@@ -49,12 +49,12 @@
                         </template>
                         <div class="text-item">
                           {{
-                            "电话：" +
-                            (item.phoneNum === "" ? "无" : item.phoneNum)
+                            "省份：" +
+                            (item.provine === "" ? "无" : item.province)
                           }}
                         </div>
                         <div class="text-item">
-                          {{ "地址：" + item.address }}
+                          {{ "详细地址：" + item.address }}
                         </div>
                         <div class="text-item">
                           {{ "特征：" + item.description }}
@@ -68,12 +68,12 @@
                 <div class="page_bottom">
                   <div class="pagination">
                     <el-pagination
-                      v-show="total > 0"
+                      v-show="userList.length > 0"
                       background
                       :current-page.sync="queryParams.pageNumber"
                       :page-size="queryParams.pageSize"
                       layout="total, prev, pager, next, jumper"
-                      :total="total"
+                      :total="userList.length"
                       @current-change="handleCurrentChange"
                     />
                   </div>
@@ -88,6 +88,7 @@
 </template>
 <script>
 import drawMixin from "../utils/drawMixin";
+import { reportDataSetList } from "@/api/reportDataSet";
 export default {
   mixins: [drawMixin],
   data() {
@@ -102,10 +103,36 @@ export default {
       },
     };
   },
+  mounted(){
+    this.setUserList();
+  },
   created() {
     this.handleQueryPageList1();
   },
   methods: {
+    async setUserList() {
+      this.userList = await this.getUserList("portrait");
+    },
+    async getUserList(setName) {
+      let queryParams = {};
+      let a = [];
+      queryParams["setName"] = setName;
+      let params = this.urlEncodeObject(queryParams);
+      const { data, code } = await reportDataSetList(params);
+      if (code != "200") return;
+      let temp = JSON.parse(data.records[0].caseResult);
+      //console.log(temp);
+      temp.map((k) => {
+        k = {
+          number:k.id,
+          province:k.province,
+          address:k.detail,
+          description:k.mood,
+        };
+        a.push(k);
+      });
+      return a;
+    },
     async handleQueryPageList1() {
       let params = this.urlEncodeObject(this.queryParams);
       console.log(params);
@@ -113,32 +140,7 @@ export default {
       const code = "200";
       const data = {
         userList: [
-          {
-            number: "1234",
-            address: "广东省广州市",
-            phoneNum: "123456789",
-            description: "情绪激动",
-          },
-          {
-            number: "1234",
-            address: "广东省广州市",
-            phoneNum: "",
-            description: "情绪激动",
-          },
-          {
-            number: "1234",
-            address: "广东省广州市",
-            phoneNum: "123456789",
-            description: "情绪激动",
-          },
-          {
-            number: "1234",
-            address: "广东省广州市",
-            phoneNum: "123456789",
-            description: "情绪激动",
-          },
         ],
-        total: 5,
       };
       if (code != "200") return;
       this.total = data.total;
