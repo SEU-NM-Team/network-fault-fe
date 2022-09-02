@@ -72,7 +72,7 @@
                       background
                       :current-page.sync="queryParams.pageNumber"
                       :page-size="queryParams.pageSize"
-                      layout="total, prev, pager, next, jumper"
+                      layout="pager"
                       :total="userList.length"
                       @current-change="handleCurrentChange"
                     />
@@ -212,7 +212,7 @@ export default {
   .box {
     overflow: hidden;
     width: 1600px;
-    height: 850px;
+    height: 820px;
     .box-row {
       .box-dv {
         width: 80%;
@@ -253,4 +253,16 @@ export default {
   background: transparent !important;
   color: white !important;
 }
+</style>
+
+<style>
+  .el-pagination.is-background .el-pager li:not(.disabled).active {
+    background-color: transparent;
+    color: #7ce7fd;
+  }
+
+    .el-pagination.is-background .el-pager li:not(.disabled) {
+    background-color: transparent;
+    color: #2e6099;
+  }
 </style>
